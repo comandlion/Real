@@ -1,7 +1,4 @@
-import "./global.css";
-
 import { Toaster } from "@/components/ui/toaster";
-import { createRoot } from "react-dom/client";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -45,16 +42,4 @@ const App = () => (
   </QueryClientProvider>
 );
 
-// Initialize React root safely to prevent duplicate root warnings in development
-const container = document.getElementById("root")!;
-
-// Store root instance to prevent duplicate creation during HMR
-declare global {
-  var __reactRoot: ReturnType<typeof createRoot> | undefined;
-}
-
-if (!globalThis.__reactRoot) {
-  globalThis.__reactRoot = createRoot(container);
-}
-
-globalThis.__reactRoot.render(<App />);
+export default App;
