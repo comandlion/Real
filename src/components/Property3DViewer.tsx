@@ -235,10 +235,18 @@ export function Property3DViewer({
               />
 
               {/* Enhanced Lighting Setup */}
-              <directionalLight position={[10, 10, 5]} intensity={1.2} castShadow />
+              <directionalLight
+                position={[10, 10, 5]}
+                intensity={1.2}
+                castShadow
+              />
               <ambientLight intensity={0.4} />
               <pointLight position={[-10, 10, -10]} intensity={0.6} />
-              <pointLight position={[10, 5, 10]} intensity={0.4} color="#ffeb3b" />
+              <pointLight
+                position={[10, 5, 10]}
+                intensity={0.4}
+                color="#ffeb3b"
+              />
               <hemisphereLight
                 skyColor="#87CEEB"
                 groundColor="#8B4513"
