@@ -41,7 +41,7 @@ export default function About() {
       role: "CEO & Principal Broker",
       experience: "15+ years",
       specialization: "Luxury Properties",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
       bio: "Leading Premium Realty with a vision for exceptional service and market expertise.",
     },
     {
@@ -49,7 +49,7 @@ export default function About() {
       role: "Senior Agent",
       experience: "12+ years",
       specialization: "Commercial Real Estate",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
       bio: "Specializing in commercial properties and investment opportunities.",
     },
     {
@@ -57,7 +57,7 @@ export default function About() {
       role: "Residential Specialist",
       experience: "8+ years",
       specialization: "First-Time Buyers",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
       bio: "Helping families find their dream homes with personalized guidance.",
     },
     {
@@ -65,7 +65,7 @@ export default function About() {
       role: "Market Analyst",
       experience: "10+ years",
       specialization: "Market Research",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
       bio: "Providing data-driven insights for informed real estate decisions.",
     },
   ];
