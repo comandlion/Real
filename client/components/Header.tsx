@@ -297,40 +297,46 @@ export function Header() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.5 }}
                 >
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start mb-2 hover:bg-luxury-blue/10 hover:text-luxury-blue"
+                  <Link to="/favorites">
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                     >
-                      <Heart className="h-4 w-4 mr-2" />
-                      Favorites
-                    </Button>
-                  </motion.div>
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start mb-2 hover:bg-luxury-blue/10 hover:text-luxury-blue"
+                      >
+                        <Heart className="h-4 w-4 mr-2" />
+                        Favorites
+                      </Button>
+                    </motion.div>
+                  </Link>
 
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start mb-2 hover:bg-luxury-blue/10 hover:text-luxury-blue"
+                  <Link to="/signin">
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                     >
-                      <User className="h-4 w-4 mr-2" />
-                      Sign In
-                    </Button>
-                  </motion.div>
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start mb-2 hover:bg-luxury-blue/10 hover:text-luxury-blue"
+                      >
+                        <User className="h-4 w-4 mr-2" />
+                        Sign In
+                      </Button>
+                    </motion.div>
+                  </Link>
 
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <Button className="w-full bg-luxury-blue hover:bg-blue-600 text-white transition-all duration-300">
-                      List Property
-                    </Button>
-                  </motion.div>
+                  <Link to="/list-property">
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Button className="w-full bg-luxury-blue hover:bg-blue-600 text-white transition-all duration-300">
+                        List Property
+                      </Button>
+                    </motion.div>
+                  </Link>
                 </motion.div>
               </motion.div>
             </motion.div>
