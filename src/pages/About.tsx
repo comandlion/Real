@@ -318,7 +318,10 @@ export default function About() {
               >
                 <Card className="overflow-hidden hover:shadow-lg transition-shadow">
                   <div className="aspect-square bg-gradient-to-br from-luxury-blue to-luxury-navy">
-                    <div className="w-full h-full bg-[url('/placeholder.svg')] bg-cover bg-center"></div>
+                    <div
+                      className="w-full h-full bg-cover bg-center"
+                      style={{ backgroundImage: `url(${member.image})` }}
+                    ></div>
                   </div>
                   <CardContent className="p-6">
                     <h3 className="text-xl font-semibold text-luxury-navy mb-1">
