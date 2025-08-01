@@ -7,19 +7,25 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useContext } from 'react';
+import { AuthContext } from '@/context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { login, register } from '../api'; // adjust path
 import {
   Mail,
   Lock,
   Eye,
   EyeOff,
   User,
-  Phone,
   Building,
   ArrowRight,
   Shield,
   CheckCircle,
 } from "lucide-react";
 import { useState } from "react";
+
+
+
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -64,6 +70,47 @@ export default function SignIn() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { setToken } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    first_name: '',
+    last_name: '',
+    username: '',
+    email: '',
+    password1: '',
+    password2: '',
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      let response;
+
+      if (isSignUp) {
+        response = await register(formData); // call your register API
+      } else {
+        const loginPayload = {
+          username: formData.username,
+          password: formData.password1,
+        };
+        response = await login(loginPayload); // call your login API
+        setToken(response.data.access); // assuming the response has token in `data.token`
+        console.log(response.data)
+      }
+
+      navigate('/'); // redirect after success
+    } catch (error) {
+      console.error(error);
+      alert('Authentication failed. Please try again.');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -217,14 +264,18 @@ export default function SignIn() {
                     </div>
 
                     {/* Form */}
-                    <form className="space-y-4">
+                    <form className="space-y-4" onSubmit={handleSubmit}>
                       {isSignUp && (
                         <div className="grid grid-cols-2 gap-4">
                           <motion.div whileFocus={{ scale: 1.02 }}>
                             <div className="relative">
                               <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                               <Input
+                                name="first_name"
+                                type="text"
+                                value={formData.first_name}
                                 placeholder="First Name"
+                                onChange={handleChange}
                                 className="pl-10 h-12 border-gray-200 focus:border-luxury-blue transition-colors"
                               />
                             </div>
@@ -233,7 +284,11 @@ export default function SignIn() {
                             <div className="relative">
                               <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                               <Input
+                                name="last_name"
+                                type="text"
+                                value={formData.last_name}
                                 placeholder="Last Name"
+                                onChange={handleChange}
                                 className="pl-10 h-12 border-gray-200 focus:border-luxury-blue transition-colors"
                               />
                             </div>
@@ -243,34 +298,44 @@ export default function SignIn() {
 
                       <motion.div whileFocus={{ scale: 1.02 }}>
                         <div className="relative">
-                          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                          <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                           <Input
-                            type="email"
-                            placeholder="Email Address"
+                            name="username"
+                            value={formData.username}
+                            onChange={handleChange}
+                            type="text"
+                            placeholder="Username"
                             className="pl-10 h-12 border-gray-200 focus:border-luxury-blue transition-colors"
                           />
                         </div>
                       </motion.div>
 
                       {isSignUp && (
-                        <motion.div whileFocus={{ scale: 1.02 }}>
-                          <div className="relative">
-                            <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                            <Input
-                              type="tel"
-                              placeholder="Phone Number"
-                              className="pl-10 h-12 border-gray-200 focus:border-luxury-blue transition-colors"
-                            />
-                          </div>
-                        </motion.div>
+                      <motion.div whileFocus={{ scale: 1.02 }}>
+                        <div className="relative">
+                          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                          <Input
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            type="email"
+                            placeholder="Email Address"
+                            className="pl-10 h-12 border-gray-200 focus:border-luxury-blue transition-colors"
+                          />
+                        </div>
+                      </motion.div>
                       )}
+
 
                       <motion.div whileFocus={{ scale: 1.02 }}>
                         <div className="relative">
                           <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                           <Input
+                            name="password1"
+                            value={formData.password1}
                             type={showPassword ? "text" : "password"}
                             placeholder="Password"
+                            onChange={handleChange}
                             className="pl-10 pr-10 h-12 border-gray-200 focus:border-luxury-blue transition-colors"
                           />
                           <motion.button
@@ -294,8 +359,11 @@ export default function SignIn() {
                           <div className="relative">
                             <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                             <Input
+                              name="password2"
+                              value={formData.password2}
                               type={showConfirmPassword ? "text" : "password"}
                               placeholder="Confirm Password"
+                              onChange={handleChange}
                               className="pl-10 pr-10 h-12 border-gray-200 focus:border-luxury-blue transition-colors"
                             />
                             <motion.button
