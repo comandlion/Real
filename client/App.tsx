@@ -45,12 +45,16 @@ const App = () => (
   </QueryClientProvider>
 );
 
-// Initialize React root safely to prevent duplicate root warnings
+// Initialize React root safely to prevent duplicate root warnings in development
 const container = document.getElementById("root")!;
 
-// Check if we're in development and avoid duplicate roots
-if (!container.hasAttribute('data-react-root')) {
-  container.setAttribute('data-react-root', 'true');
-  const root = createRoot(container);
-  root.render(<App />);
+// Store root instance to prevent duplicate creation during HMR
+declare global {
+  var __reactRoot: ReturnType<typeof createRoot> | undefined;
 }
+
+if (!globalThis.__reactRoot) {
+  globalThis.__reactRoot = createRoot(container);
+}
+
+globalThis.__reactRoot.render(<App />);
