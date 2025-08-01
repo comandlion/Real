@@ -227,7 +227,7 @@ export default function About() {
               className="relative"
             >
               <div className="aspect-square bg-gradient-to-br from-luxury-blue to-luxury-navy rounded-2xl overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/placeholder.svg')] bg-cover bg-center"></div>
+                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1560184897-ae75f418493e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')] bg-cover bg-center"></div>
                 <div className="absolute inset-0 bg-luxury-blue/20"></div>
               </div>
             </motion.div>
