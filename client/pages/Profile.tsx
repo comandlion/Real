@@ -9,11 +9,11 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { 
-  User, 
-  Mail, 
-  Phone, 
-  MapPin, 
+import {
+  User,
+  Mail,
+  Phone,
+  MapPin,
   Edit3,
   Heart,
   Home,
@@ -29,7 +29,8 @@ import {
   TrendingUp,
   Building,
   Clock,
-  DollarSign
+  DollarSign,
+  CheckCircle
 } from "lucide-react";
 import { useState } from "react";
 
