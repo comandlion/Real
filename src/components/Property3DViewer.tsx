@@ -235,12 +235,16 @@ export function Property3DViewer({
                 maxDistance={100}
               />
 
-              <Environment preset="sunset" />
-
-              {/* Lighting */}
-              <directionalLight position={[10, 10, 5]} intensity={1} />
-              <ambientLight intensity={0.3} />
-              <pointLight position={[-10, 10, -10]} intensity={0.5} />
+              {/* Enhanced Lighting Setup */}
+              <directionalLight position={[10, 10, 5]} intensity={1.2} castShadow />
+              <ambientLight intensity={0.4} />
+              <pointLight position={[-10, 10, -10]} intensity={0.6} />
+              <pointLight position={[10, 5, 10]} intensity={0.4} color="#ffeb3b" />
+              <hemisphereLight
+                skyColor="#87CEEB"
+                groundColor="#8B4513"
+                intensity={0.3}
+              />
 
               {/* Render appropriate 3D model based on property type */}
               {propertyType === "real_estate" ? (
