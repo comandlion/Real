@@ -57,6 +57,13 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Real Estate Brand Colors
+        "luxury-blue": "hsl(var(--luxury-blue))",
+        "luxury-navy": "hsl(var(--luxury-navy))",
+        "luxury-gold": "hsl(var(--luxury-gold))",
+        "success-green": "hsl(var(--success-green))",
+        "warm-gray": "hsl(var(--warm-gray))",
+        "light-gray": "hsl(var(--light-gray))"
       },
       borderRadius: {
         lg: "var(--radius)",
