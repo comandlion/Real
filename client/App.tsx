@@ -45,13 +45,12 @@ const App = () => (
   </QueryClientProvider>
 );
 
-// Initialize React root safely
+// Initialize React root safely to prevent duplicate root warnings
 const container = document.getElementById("root")!;
-let root = (container as any)._reactRoot;
 
-if (!root) {
-  root = createRoot(container);
-  (container as any)._reactRoot = root;
+// Check if we're in development and avoid duplicate roots
+if (!container.hasAttribute('data-react-root')) {
+  container.setAttribute('data-react-root', 'true');
+  const root = createRoot(container);
+  root.render(<App />);
 }
-
-root.render(<App />);
