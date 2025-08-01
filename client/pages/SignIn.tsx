@@ -174,7 +174,6 @@ export default function SignIn() {
                     <div className="space-y-3 mb-6">
                       <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                         <Button variant="outline" className="w-full h-12 border-gray-200 hover:border-luxury-blue">
-                          <Circle className="h-5 w-5 mr-3" />
                           Continue with Google
                         </Button>
                       </motion.div>
@@ -182,13 +181,11 @@ export default function SignIn() {
                       <div className="grid grid-cols-2 gap-3">
                         <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                           <Button variant="outline" className="w-full h-12 border-gray-200 hover:border-luxury-blue">
-                            <Globe className="h-5 w-5 mr-2" />
                             Facebook
                           </Button>
                         </motion.div>
                         <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                           <Button variant="outline" className="w-full h-12 border-gray-200 hover:border-luxury-blue">
-                            <Smartphone className="h-5 w-5 mr-2" />
                             Apple
                           </Button>
                         </motion.div>
