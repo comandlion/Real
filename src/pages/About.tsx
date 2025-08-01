@@ -113,6 +113,7 @@ export default function About() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <Header />
       {/* Hero Section */}
       <section className="relative py-20 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-luxury-navy to-luxury-blue opacity-90"></div>
