@@ -174,42 +174,48 @@ export function Header() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.5 }}
             >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="hidden lg:flex items-center space-x-2 hover:bg-luxury-blue/10 hover:text-luxury-blue transition-all"
+              <Link to="/favorites">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <Heart className="h-4 w-4" />
-                  <span>Favorites</span>
-                </Button>
-              </motion.div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="hidden lg:flex items-center space-x-2 hover:bg-luxury-blue/10 hover:text-luxury-blue transition-all"
+                  >
+                    <Heart className="h-4 w-4" />
+                    <span>Favorites</span>
+                  </Button>
+                </motion.div>
+              </Link>
 
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="hidden lg:flex items-center space-x-2 hover:bg-luxury-blue/10 hover:text-luxury-blue transition-all"
+              <Link to="/signin">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <User className="h-4 w-4" />
-                  <span>Sign In</span>
-                </Button>
-              </motion.div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="hidden lg:flex items-center space-x-2 hover:bg-luxury-blue/10 hover:text-luxury-blue transition-all"
+                  >
+                    <User className="h-4 w-4" />
+                    <span>Sign In</span>
+                  </Button>
+                </motion.div>
+              </Link>
 
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button className="bg-luxury-blue hover:bg-blue-600 text-white transition-all duration-300 shadow-lg hover:shadow-xl">
-                  List Property
-                </Button>
-              </motion.div>
+              <Link to="/list-property">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button className="bg-luxury-blue hover:bg-blue-600 text-white transition-all duration-300 shadow-lg hover:shadow-xl">
+                    List Property
+                  </Button>
+                </motion.div>
+              </Link>
             </motion.div>
 
             {/* Enhanced Mobile menu button */}
