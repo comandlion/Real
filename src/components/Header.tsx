@@ -107,67 +107,71 @@ export function Header() {
 
       {/* Enhanced Main navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Enhanced Logo */}
-          <Link to="/" className="flex items-center space-x-2 group">
-            <motion.div
-              className="bg-luxury-blue text-white rounded-lg p-2 group-hover:bg-blue-600 transition-colors"
-              whileHover={{
-                scale: 1.1,
-                rotate: 5,
-              }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <div className="h-6 w-6 flex items-center justify-center font-bold text-lg">
-                P
-              </div>
-            </motion.div>
-            <motion.div
-              className="text-xl font-bold text-luxury-navy"
-              whileHover={{ x: 5 }}
-              transition={{ duration: 0.2 }}
-            >
-              Premium<span className="text-luxury-blue">Realty</span>
-            </motion.div>
-          </Link>
+        <div className="flex items-center h-16">
+          {/* Left Section - Logo */}
+          <div className="flex-shrink-0">
+            <Link to="/" className="flex items-center space-x-2 group">
+              <motion.div
+                className="bg-luxury-blue text-white rounded-lg p-2 group-hover:bg-blue-600 transition-colors"
+                whileHover={{
+                  scale: 1.1,
+                  rotate: 5,
+                }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <div className="h-6 w-6 flex items-center justify-center font-bold text-lg">
+                  P
+                </div>
+              </motion.div>
+              <motion.div
+                className="text-xl font-bold text-luxury-navy"
+                whileHover={{ x: 5 }}
+                transition={{ duration: 0.2 }}
+              >
+                Premium<span className="text-luxury-blue">Realty</span>
+              </motion.div>
+            </Link>
+          </div>
 
-          {/* Enhanced Desktop Navigation */}
-          <nav className="hidden md:flex space-x-1">
-            {navItems.map((item) => (
-              <Link key={item.path} to={item.path}>
-                <motion.div
-                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 relative ${
-                    isActivePath(item.path)
-                      ? "text-luxury-blue bg-luxury-blue/10"
-                      : "text-gray-700 hover:text-luxury-blue hover:bg-luxury-blue/5"
-                  }`}
-                  whileHover={{
-                    scale: 1.05,
-                    y: -2,
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <span className="flex items-center space-x-2">
-                    <item.icon className="h-4 w-4" />
-                    <span>{item.label}</span>
-                  </span>
+          {/* Center Section - Main Navigation */}
+          <div className="flex-1 flex justify-center">
+            <nav className="hidden md:flex space-x-1">
+              {navItems.map((item) => (
+                <Link key={item.path} to={item.path}>
+                  <motion.div
+                    className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 relative ${
+                      isActivePath(item.path)
+                        ? "text-luxury-blue bg-luxury-blue/10"
+                        : "text-gray-700 hover:text-luxury-blue hover:bg-luxury-blue/5"
+                    }`}
+                    whileHover={{
+                      scale: 1.05,
+                      y: -2,
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <span className="flex items-center space-x-2">
+                      <item.icon className="h-4 w-4" />
+                      <span>{item.label}</span>
+                    </span>
 
-                  {isActivePath(item.path) && (
-                    <motion.div
-                      className="absolute bottom-0 left-1/2 w-1 h-1 bg-luxury-blue rounded-full"
-                      layoutId="activeIndicator"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      style={{ x: "-50%" }}
-                    />
-                  )}
-                </motion.div>
-              </Link>
-            ))}
-          </nav>
+                    {isActivePath(item.path) && (
+                      <motion.div
+                        className="absolute bottom-0 left-1/2 w-1 h-1 bg-luxury-blue rounded-full"
+                        layoutId="activeIndicator"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        style={{ x: "-50%" }}
+                      />
+                    )}
+                  </motion.div>
+                </Link>
+              ))}
+            </nav>
+          </div>
 
-          {/* Enhanced Right side actions */}
-          <div className="flex items-center space-x-2">
+          {/* Right Section - Action Buttons */}
+          <div className="flex-shrink-0 flex items-center space-x-2">
             <motion.div
               className="hidden md:flex items-center space-x-2"
               initial={{ opacity: 0, x: 50 }}
