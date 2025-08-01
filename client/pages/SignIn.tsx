@@ -15,9 +15,6 @@ import {
   User,
   Phone,
   Building,
-  Circle,
-  Globe,
-  Smartphone,
   ArrowRight,
   Shield,
   CheckCircle
