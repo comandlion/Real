@@ -1,7 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import {
   OrbitControls,
-  Environment,
   PerspectiveCamera,
   Text,
   Box,
