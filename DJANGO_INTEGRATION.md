@@ -5,6 +5,7 @@ This document outlines the integration between your React frontend and Django RE
 ## Overview
 
 The frontend is now ready to work with a Django backend that supports:
+
 - **Real Estate Properties** (houses, apartments, villas, etc.)
 - **Land Properties** (residential, commercial, agricultural land)
 - **Interactive Mapping** with coordinates
@@ -25,7 +26,7 @@ class Property(models.Model):
         ('real_estate', 'Real Estate'),
         ('land', 'Land'),
     ]
-    
+
     REAL_ESTATE_TYPES = [
         ('house', 'House'),
         ('apartment', 'Apartment'),
@@ -36,7 +37,7 @@ class Property(models.Model):
         ('penthouse', 'Penthouse'),
         ('commercial', 'Commercial'),
     ]
-    
+
     LAND_TYPES = [
         ('residential_land', 'Residential Land'),
         ('commercial_land', 'Commercial Land'),
@@ -45,14 +46,14 @@ class Property(models.Model):
         ('mixed_use_land', 'Mixed Use Land'),
         ('development_land', 'Development Land'),
     ]
-    
+
     LISTING_TYPES = [
         ('sale', 'For Sale'),
         ('rent', 'For Rent'),
         ('lease', 'For Lease'),
         ('auction', 'Auction'),
     ]
-    
+
     STATUS_CHOICES = [
         ('active', 'Active'),
         ('pending', 'Pending'),
@@ -60,7 +61,7 @@ class Property(models.Model):
         ('rented', 'Rented'),
         ('off_market', 'Off Market'),
     ]
-    
+
     # Basic Information
     title = models.CharField(max_length=200)
     description = models.TextField()
@@ -69,7 +70,7 @@ class Property(models.Model):
     land_type = models.CharField(max_length=20, choices=LAND_TYPES, null=True, blank=True)
     listing_type = models.CharField(max_length=10, choices=LISTING_TYPES)
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='active')
-    
+
     # Location and Geography
     address = models.CharField(max_length=300)
     city = models.CharField(max_length=100)
@@ -78,7 +79,7 @@ class Property(models.Model):
     postal_code = models.CharField(max_length=20)
     latitude = models.DecimalField(max_digits=10, decimal_places=8)
     longitude = models.DecimalField(max_digits=11, decimal_places=8)
-    
+
     # Dimensions and Details
     total_area = models.IntegerField()  # in square feet
     lot_size = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)  # in acres
@@ -86,25 +87,25 @@ class Property(models.Model):
     bathrooms = models.DecimalField(max_digits=3, decimal_places=1, null=True, blank=True)
     floors = models.IntegerField(null=True, blank=True)
     year_built = models.IntegerField(null=True, blank=True)
-    
+
     # Financial Information
     price = models.DecimalField(max_digits=12, decimal_places=2)
     currency = models.CharField(max_length=3, default='USD')
     price_per_sqft = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    
+
     # Land-specific fields
     zoning = models.CharField(max_length=100, null=True, blank=True)
     soil_type = models.CharField(max_length=100, null=True, blank=True)
     topography = models.CharField(max_length=50, null=True, blank=True)
     utilities_available = models.JSONField(default=list)
     buildable = models.BooleanField(default=True)
-    
+
     # 3D Visualization Data
     dimensions_3d = models.JSONField(default=dict)  # {"width": 60, "length": 80, "height": 25}
-    
+
     # Agent and Contact
     agent = models.ForeignKey('Agent', on_delete=models.CASCADE)
-    
+
     # Metadata
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -112,10 +113,10 @@ class Property(models.Model):
     favorites = models.IntegerField(default=0)
     featured = models.BooleanField(default=False)
     premium_listing = models.BooleanField(default=False)
-    
+
     class Meta:
         ordering = ['-created_at']
-        
+
     def days_on_market(self):
         from django.utils import timezone
         return (timezone.now().date() - self.created_at.date()).days
@@ -185,25 +186,25 @@ class PropertyViewSet(viewsets.ModelViewSet):
     filterset_fields = ['category', 'real_estate_type', 'land_type', 'listing_type', 'city', 'state']
     search_fields = ['title', 'description', 'address', 'city']
     ordering_fields = ['price', 'created_at', 'total_area']
-    
+
     def get_serializer_class(self):
         if self.action == 'retrieve':
             return PropertyDetailSerializer
         return PropertySerializer
-    
+
     @action(detail=True, methods=['post'])
     def increment_views(self, request, pk=None):
         property = self.get_object()
         property.views += 1
         property.save()
         return Response({'views': property.views})
-    
+
     @action(detail=False)
     def featured(self, request):
         featured_properties = Property.objects.filter(featured=True)
         serializer = self.get_serializer(featured_properties, many=True)
         return Response(serializer.data)
-    
+
     @action(detail=False)
     def map_data(self, request):
         properties = self.filter_queryset(self.get_queryset())
@@ -227,21 +228,21 @@ class PropertySearchView(APIView):
         # Advanced search with multiple filters
         filters = request.data
         queryset = Property.objects.all()
-        
+
         if 'category' in filters:
             queryset = queryset.filter(category=filters['category'])
-        
+
         if 'price_range' in filters:
             min_price = filters['price_range'].get('min', 0)
             max_price = filters['price_range'].get('max', 999999999)
             queryset = queryset.filter(price__gte=min_price, price__lte=max_price)
-        
+
         if 'location' in filters:
             location = filters['location']
             if 'coordinates' in location and 'radius' in location:
                 # Implement radius-based search using GeoDjango
                 pass
-        
+
         serializer = PropertySerializer(queryset, many=True)
         return Response(serializer.data)
 ```
@@ -275,23 +276,23 @@ class PropertySerializer(serializers.ModelSerializer):
     days_on_market = serializers.ReadOnlyField()
     coordinates = serializers.SerializerMethodField()
     dimensions = serializers.SerializerMethodField()
-    
+
     class Meta:
         model = Property
         fields = '__all__'
-    
+
     def get_coordinates(self, obj):
         return {
             'lat': float(obj.latitude),
             'lng': float(obj.longitude)
         }
-    
+
     def get_dimensions(self, obj):
         return obj.dimensions_3d or {}
 
 class PropertyDetailSerializer(PropertySerializer):
     similar_properties = serializers.SerializerMethodField()
-    
+
     def get_similar_properties(self, obj):
         similar = Property.objects.filter(
             category=obj.category,
@@ -306,40 +307,53 @@ class PropertyDetailSerializer(PropertySerializer):
 
 ```typescript
 // client/services/api.ts
-import { Property, PropertySearchFilters, PropertyListResponse } from '@/types/property';
+import {
+  Property,
+  PropertySearchFilters,
+  PropertyListResponse,
+} from "@/types/property";
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
+const API_BASE_URL =
+  process.env.REACT_APP_API_URL || "http://localhost:8000/api";
 
 class PropertyAPI {
-  private async request<T>(endpoint: string, options?: RequestInit): Promise<T> {
+  private async request<T>(
+    endpoint: string,
+    options?: RequestInit,
+  ): Promise<T> {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         ...options?.headers,
       },
       ...options,
     });
-    
+
     if (!response.ok) {
       throw new Error(`API Error: ${response.statusText}`);
     }
-    
+
     return response.json();
   }
 
-  async getProperties(filters?: PropertySearchFilters): Promise<PropertyListResponse> {
+  async getProperties(
+    filters?: PropertySearchFilters,
+  ): Promise<PropertyListResponse> {
     const queryParams = new URLSearchParams();
-    
+
     if (filters) {
-      if (filters.category) queryParams.append('category', filters.category);
-      if (filters.listing_type) queryParams.append('listing_type', filters.listing_type.join(','));
+      if (filters.category) queryParams.append("category", filters.category);
+      if (filters.listing_type)
+        queryParams.append("listing_type", filters.listing_type.join(","));
       if (filters.price_range) {
-        queryParams.append('price__gte', filters.price_range.min.toString());
-        queryParams.append('price__lte', filters.price_range.max.toString());
+        queryParams.append("price__gte", filters.price_range.min.toString());
+        queryParams.append("price__lte", filters.price_range.max.toString());
       }
     }
-    
-    return this.request<PropertyListResponse>(`/properties/?${queryParams.toString()}`);
+
+    return this.request<PropertyListResponse>(
+      `/properties/?${queryParams.toString()}`,
+    );
   }
 
   async getProperty(id: number): Promise<Property> {
@@ -347,18 +361,18 @@ class PropertyAPI {
   }
 
   async getMapData(): Promise<any[]> {
-    return this.request<any[]>('/properties/map_data/');
+    return this.request<any[]>("/properties/map_data/");
   }
 
   async incrementViews(id: number): Promise<void> {
     await this.request(`/properties/${id}/increment_views/`, {
-      method: 'POST',
+      method: "POST",
     });
   }
 
   async searchProperties(filters: PropertySearchFilters): Promise<Property[]> {
-    return this.request<Property[]>('/properties/search/', {
-      method: 'POST',
+    return this.request<Property[]>("/properties/search/", {
+      method: "POST",
       body: JSON.stringify(filters),
     });
   }
@@ -371,38 +385,38 @@ export const propertyAPI = new PropertyAPI();
 
 ```typescript
 // client/hooks/useProperties.ts
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { propertyAPI } from '@/services/api';
-import { PropertySearchFilters } from '@/types/property';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { propertyAPI } from "@/services/api";
+import { PropertySearchFilters } from "@/types/property";
 
 export function useProperties(filters?: PropertySearchFilters) {
   return useQuery({
-    queryKey: ['properties', filters],
+    queryKey: ["properties", filters],
     queryFn: () => propertyAPI.getProperties(filters),
   });
 }
 
 export function useProperty(id: number) {
   return useQuery({
-    queryKey: ['property', id],
+    queryKey: ["property", id],
     queryFn: () => propertyAPI.getProperty(id),
   });
 }
 
 export function usePropertyMapData() {
   return useQuery({
-    queryKey: ['properties', 'map'],
+    queryKey: ["properties", "map"],
     queryFn: () => propertyAPI.getMapData(),
   });
 }
 
 export function useIncrementViews() {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: (id: number) => propertyAPI.incrementViews(id),
     onSuccess: (_, id) => {
-      queryClient.invalidateQueries({ queryKey: ['property', id] });
+      queryClient.invalidateQueries({ queryKey: ["property", id] });
     },
   });
 }

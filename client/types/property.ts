@@ -1,28 +1,33 @@
 // Property types for Django backend integration
 
-export type PropertyCategory = 'real_estate' | 'land';
+export type PropertyCategory = "real_estate" | "land";
 
-export type RealEstateType = 
-  | 'house' 
-  | 'apartment' 
-  | 'villa' 
-  | 'condo' 
-  | 'townhouse' 
-  | 'loft' 
-  | 'penthouse'
-  | 'commercial';
+export type RealEstateType =
+  | "house"
+  | "apartment"
+  | "villa"
+  | "condo"
+  | "townhouse"
+  | "loft"
+  | "penthouse"
+  | "commercial";
 
-export type LandType = 
-  | 'residential_land'
-  | 'commercial_land' 
-  | 'agricultural_land'
-  | 'industrial_land'
-  | 'mixed_use_land'
-  | 'development_land';
+export type LandType =
+  | "residential_land"
+  | "commercial_land"
+  | "agricultural_land"
+  | "industrial_land"
+  | "mixed_use_land"
+  | "development_land";
 
-export type ListingType = 'sale' | 'rent' | 'lease' | 'auction';
+export type ListingType = "sale" | "rent" | "lease" | "auction";
 
-export type PropertyStatus = 'active' | 'pending' | 'sold' | 'rented' | 'off_market';
+export type PropertyStatus =
+  | "active"
+  | "pending"
+  | "sold"
+  | "rented"
+  | "off_market";
 
 export interface PropertyCoordinates {
   lat: number;
@@ -60,11 +65,11 @@ export interface PropertyAmenities {
   security_system?: boolean;
   elevator?: boolean;
   gym?: boolean;
-  
+
   // Land Amenities
   utilities_available?: string[]; // water, electricity, gas, sewer
   road_access?: boolean;
-  topography?: 'flat' | 'sloped' | 'hilly' | 'mountainous';
+  topography?: "flat" | "sloped" | "hilly" | "mountainous";
   soil_type?: string;
   zoning?: string;
   development_rights?: boolean;
@@ -96,7 +101,7 @@ export interface PropertyFinancials {
 
 export interface PropertyLegal {
   title_deed?: string;
-  ownership_type: 'freehold' | 'leasehold' | 'shared';
+  ownership_type: "freehold" | "leasehold" | "shared";
   encumbrances?: string[];
   easements?: string[];
   restrictions?: string[];
@@ -126,27 +131,27 @@ export interface Property {
   land_type?: LandType;
   listing_type: ListingType;
   status: PropertyStatus;
-  
+
   // Location and Geography
   coordinates: PropertyCoordinates;
   dimensions: PropertyDimensions;
-  
+
   // Features and Amenities
   amenities: PropertyAmenities;
   features: string[];
-  
+
   // Media and Documentation
   media: PropertyMedia;
-  
+
   // Financial Information
   financials: PropertyFinancials;
-  
+
   // Legal Information
   legal: PropertyLegal;
-  
+
   // Agent and Contact
   agent: PropertyAgent;
-  
+
   // Metadata
   created_at: string;
   updated_at: string;
@@ -154,14 +159,14 @@ export interface Property {
   favorites: number;
   inquiries: number;
   days_on_market: number;
-  
+
   // SEO and Marketing
   seo_title?: string;
   seo_description?: string;
   keywords?: string[];
   featured: boolean;
   premium_listing: boolean;
-  
+
   // Investment Data (for land and commercial)
   investment_potential?: {
     appreciation_rate?: number;
@@ -169,7 +174,7 @@ export interface Property {
     development_potential?: string;
     market_analysis?: string;
   };
-  
+
   // Development Information (for land)
   development_info?: {
     buildable_area: number;
@@ -208,7 +213,13 @@ export interface PropertySearchFilters {
   bathrooms?: number[];
   amenities?: string[];
   features?: string[];
-  sort_by?: 'price_asc' | 'price_desc' | 'date_asc' | 'date_desc' | 'area_asc' | 'area_desc';
+  sort_by?:
+    | "price_asc"
+    | "price_desc"
+    | "date_asc"
+    | "date_desc"
+    | "area_asc"
+    | "area_desc";
 }
 
 // API Response Types for Django integration
@@ -239,7 +250,7 @@ export interface PropertyFormData {
   real_estate_type?: RealEstateType;
   land_type?: LandType;
   listing_type: ListingType;
-  
+
   // Step 2: Location
   address: string;
   city: string;
@@ -250,28 +261,28 @@ export interface PropertyFormData {
     lat: number;
     lng: number;
   };
-  
+
   // Step 3: Details and Dimensions
   total_area: number;
   lot_size?: number;
   bedrooms?: number;
   bathrooms?: number;
   floors?: number;
-  
+
   // Step 4: Amenities and Features
   amenities: Partial<PropertyAmenities>;
   features: string[];
-  
+
   // Step 5: Media
   images: File[] | string[];
   videos?: File[] | string[];
   virtual_tour_url?: string;
-  
+
   // Step 6: Pricing and Legal
   price: number;
   currency: string;
-  ownership_type: 'freehold' | 'leasehold' | 'shared';
-  
+  ownership_type: "freehold" | "leasehold" | "shared";
+
   // Step 7: Agent Information
   agent_contact: {
     name: string;
@@ -282,33 +293,33 @@ export interface PropertyFormData {
 
 // Utility functions for property types
 export const PROPERTY_CATEGORIES: Record<PropertyCategory, string> = {
-  real_estate: 'Real Estate',
-  land: 'Land'
+  real_estate: "Real Estate",
+  land: "Land",
 };
 
 export const REAL_ESTATE_TYPES: Record<RealEstateType, string> = {
-  house: 'House',
-  apartment: 'Apartment',
-  villa: 'Villa',
-  condo: 'Condo',
-  townhouse: 'Townhouse',
-  loft: 'Loft',
-  penthouse: 'Penthouse',
-  commercial: 'Commercial'
+  house: "House",
+  apartment: "Apartment",
+  villa: "Villa",
+  condo: "Condo",
+  townhouse: "Townhouse",
+  loft: "Loft",
+  penthouse: "Penthouse",
+  commercial: "Commercial",
 };
 
 export const LAND_TYPES: Record<LandType, string> = {
-  residential_land: 'Residential Land',
-  commercial_land: 'Commercial Land',
-  agricultural_land: 'Agricultural Land',
-  industrial_land: 'Industrial Land',
-  mixed_use_land: 'Mixed Use Land',
-  development_land: 'Development Land'
+  residential_land: "Residential Land",
+  commercial_land: "Commercial Land",
+  agricultural_land: "Agricultural Land",
+  industrial_land: "Industrial Land",
+  mixed_use_land: "Mixed Use Land",
+  development_land: "Development Land",
 };
 
 export const LISTING_TYPES: Record<ListingType, string> = {
-  sale: 'For Sale',
-  rent: 'For Rent',
-  lease: 'For Lease',
-  auction: 'Auction'
+  sale: "For Sale",
+  rent: "For Rent",
+  lease: "For Lease",
+  auction: "Auction",
 };

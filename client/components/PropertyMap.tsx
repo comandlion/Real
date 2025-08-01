@@ -1,17 +1,20 @@
-import { useEffect, useRef } from 'react';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { MapPin, Navigation, Maximize2, Home, TreePine } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { useEffect, useRef } from "react";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { MapPin, Navigation, Maximize2, Home, TreePine } from "lucide-react";
+import { motion } from "framer-motion";
 
 // Fix for default markers in React
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
-  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+  iconRetinaUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
+  iconUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
 });
 
 interface Property {
@@ -21,7 +24,7 @@ interface Property {
   price: string;
   lat: number;
   lng: number;
-  type: 'real_estate' | 'land';
+  type: "real_estate" | "land";
   propertyType?: string;
   image?: string;
 }
@@ -44,19 +47,20 @@ const defaultProperties: Property[] = [
     price: "$2,850,000",
     lat: 34.0901,
     lng: -118.4065,
-    type: 'real_estate',
-    propertyType: 'Villa',
-    image: "https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    type: "real_estate",
+    propertyType: "Villa",
+    image:
+      "https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
   },
   {
     id: 2,
     title: "Prime Development Land",
-    location: "Malibu, CA", 
+    location: "Malibu, CA",
     price: "$1,500,000",
     lat: 34.0259,
     lng: -118.7798,
-    type: 'land',
-    propertyType: 'Residential Land'
+    type: "land",
+    propertyType: "Residential Land",
   },
   {
     id: 3,
@@ -65,8 +69,8 @@ const defaultProperties: Property[] = [
     price: "$3,200,000",
     lat: 40.7589,
     lng: -73.9851,
-    type: 'real_estate',
-    propertyType: 'Penthouse'
+    type: "real_estate",
+    propertyType: "Penthouse",
   },
   {
     id: 4,
@@ -75,19 +79,19 @@ const defaultProperties: Property[] = [
     price: "$850,000",
     lat: 30.2672,
     lng: -97.7431,
-    type: 'land',
-    propertyType: 'Commercial Land'
-  }
+    type: "land",
+    propertyType: "Commercial Land",
+  },
 ];
 
-export function PropertyMap({ 
-  properties = defaultProperties, 
+export function PropertyMap({
+  properties = defaultProperties,
   center = [34.0522, -118.2437], // Los Angeles default
   zoom = 10,
   height = "400px",
   showControls = true,
   onPropertySelect,
-  className = ""
+  className = "",
 }: PropertyMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
@@ -100,8 +104,8 @@ export function PropertyMap({
     mapInstanceRef.current = L.map(mapRef.current).setView(center, zoom);
 
     // Add tile layer
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "© OpenStreetMap contributors",
     }).addTo(mapInstanceRef.current);
 
     return () => {
@@ -116,21 +120,22 @@ export function PropertyMap({
     if (!mapInstanceRef.current) return;
 
     // Clear existing markers
-    markersRef.current.forEach(marker => {
+    markersRef.current.forEach((marker) => {
       mapInstanceRef.current?.removeLayer(marker);
     });
     markersRef.current = [];
 
     // Add property markers
-    properties.forEach(property => {
+    properties.forEach((property) => {
       // Create custom icon based on property type
-      const iconHtml = property.type === 'land' 
-        ? `<div class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+      const iconHtml =
+        property.type === "land"
+          ? `<div class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                <path d="M10 2L3 7v11h4v-6h6v6h4V7l-7-5z"/>
              </svg>
            </div>`
-        : `<div class="w-8 h-8 bg-luxury-blue rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+          : `<div class="w-8 h-8 bg-luxury-blue rounded-full flex items-center justify-center shadow-lg border-2 border-white">
              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                <path d="M10 2L3 7v11h4v-6h6v6h4V7l-7-5z"/>
              </svg>
@@ -138,28 +143,29 @@ export function PropertyMap({
 
       const customIcon = L.divIcon({
         html: iconHtml,
-        className: 'custom-marker',
+        className: "custom-marker",
         iconSize: [32, 32],
         iconAnchor: [16, 32],
-        popupAnchor: [0, -32]
+        popupAnchor: [0, -32],
       });
 
-      const marker = L.marker([property.lat, property.lng], { icon: customIcon })
-        .addTo(mapInstanceRef.current!);
+      const marker = L.marker([property.lat, property.lng], {
+        icon: customIcon,
+      }).addTo(mapInstanceRef.current!);
 
       // Create popup content
       const popupContent = `
         <div class="p-3 min-w-[250px]">
           <div class="flex items-center gap-2 mb-2">
             <span class="px-2 py-1 rounded text-xs font-medium ${
-              property.type === 'land' 
-                ? 'bg-emerald-100 text-emerald-700' 
-                : 'bg-blue-100 text-blue-700'
+              property.type === "land"
+                ? "bg-emerald-100 text-emerald-700"
+                : "bg-blue-100 text-blue-700"
             }">
-              ${property.type === 'land' ? 'Land' : 'Real Estate'}
+              ${property.type === "land" ? "Land" : "Real Estate"}
             </span>
           </div>
-          ${property.image ? `<img src="${property.image}" alt="${property.title}" class="w-full h-24 object-cover rounded mb-2">` : ''}
+          ${property.image ? `<img src="${property.image}" alt="${property.title}" class="w-full h-24 object-cover rounded mb-2">` : ""}
           <h4 class="font-semibold text-gray-900 mb-1">${property.title}</h4>
           <p class="text-sm text-gray-600 mb-2 flex items-center">
             <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
@@ -182,7 +188,7 @@ export function PropertyMap({
 
       // Handle property selection
       if (onPropertySelect) {
-        marker.on('click', () => {
+        marker.on("click", () => {
           onPropertySelect(property);
         });
       }
@@ -207,7 +213,7 @@ export function PropertyMap({
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
         mapInstanceRef.current!.setView([latitude, longitude], 15);
-        
+
         // Add user location marker
         L.marker([latitude, longitude])
           .addTo(mapInstanceRef.current!)
@@ -220,14 +226,10 @@ export function PropertyMap({
   return (
     <Card className={`border-0 shadow-lg overflow-hidden ${className}`}>
       <CardContent className="p-0 relative">
-        <div 
-          ref={mapRef} 
-          style={{ height }} 
-          className="w-full relative z-0"
-        />
-        
+        <div ref={mapRef} style={{ height }} className="w-full relative z-0" />
+
         {showControls && (
-          <motion.div 
+          <motion.div
             className="absolute top-4 right-4 flex flex-col space-y-2 z-10"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -243,7 +245,7 @@ export function PropertyMap({
                 <Maximize2 className="h-4 w-4" />
               </Button>
             </motion.div>
-            
+
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button
                 variant="outline"
@@ -258,13 +260,15 @@ export function PropertyMap({
         )}
 
         {/* Legend */}
-        <motion.div 
+        <motion.div
           className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg z-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
         >
-          <div className="text-xs font-medium text-gray-700 mb-2">Property Types</div>
+          <div className="text-xs font-medium text-gray-700 mb-2">
+            Property Types
+          </div>
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1">
               <div className="w-4 h-4 bg-luxury-blue rounded-full"></div>
@@ -282,16 +286,24 @@ export function PropertyMap({
 }
 
 // Hook for property selection events
-export function usePropertyMapEvents(onPropertySelect: (propertyId: number) => void) {
+export function usePropertyMapEvents(
+  onPropertySelect: (propertyId: number) => void,
+) {
   useEffect(() => {
     const handlePropertySelect = (event: CustomEvent) => {
       onPropertySelect(event.detail);
     };
 
-    window.addEventListener('propertySelect', handlePropertySelect as EventListener);
-    
+    window.addEventListener(
+      "propertySelect",
+      handlePropertySelect as EventListener,
+    );
+
     return () => {
-      window.removeEventListener('propertySelect', handlePropertySelect as EventListener);
+      window.removeEventListener(
+        "propertySelect",
+        handlePropertySelect as EventListener,
+      );
     };
   }, [onPropertySelect]);
 }
