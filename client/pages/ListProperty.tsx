@@ -2,16 +2,22 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { motion } from "framer-motion";
-import { 
-  Upload, 
-  MapPin, 
-  Home, 
+import {
+  Upload,
+  MapPin,
+  Home,
   DollarSign,
   Bed,
   Bath,
@@ -24,7 +30,7 @@ import {
   Star,
   Shield,
   TrendingUp,
-  Users
+  Users,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -33,9 +39,9 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1
-    }
-  }
+      staggerChildren: 0.1,
+    },
+  },
 };
 
 const itemVariants = {
@@ -44,44 +50,62 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5
-    }
-  }
+      duration: 0.5,
+    },
+  },
 };
 
 const steps = [
-  { id: 1, title: "Property Details", description: "Basic information about your property" },
-  { id: 2, title: "Features & Amenities", description: "Highlight what makes it special" },
+  {
+    id: 1,
+    title: "Property Details",
+    description: "Basic information about your property",
+  },
+  {
+    id: 2,
+    title: "Features & Amenities",
+    description: "Highlight what makes it special",
+  },
   { id: 3, title: "Photos & Media", description: "Showcase your property" },
-  { id: 4, title: "Pricing & Availability", description: "Set your terms" }
+  { id: 4, title: "Pricing & Availability", description: "Set your terms" },
 ];
 
 const amenitiesList = [
-  "Swimming Pool", "Garage", "Garden", "Gym", "Security System", "Elevator",
-  "Balcony", "Fireplace", "Air Conditioning", "Heating", "Dishwasher", "Laundry"
+  "Swimming Pool",
+  "Garage",
+  "Garden",
+  "Gym",
+  "Security System",
+  "Elevator",
+  "Balcony",
+  "Fireplace",
+  "Air Conditioning",
+  "Heating",
+  "Dishwasher",
+  "Laundry",
 ];
 
 const whyChooseUs = [
   {
     icon: TrendingUp,
     title: "Maximum Exposure",
-    description: "Your listing reaches thousands of qualified buyers"
+    description: "Your listing reaches thousands of qualified buyers",
   },
   {
     icon: Star,
     title: "Expert Support",
-    description: "Professional photography and marketing assistance"
+    description: "Professional photography and marketing assistance",
   },
   {
     icon: Shield,
     title: "Secure Process",
-    description: "Protected transactions with verified buyers"
+    description: "Protected transactions with verified buyers",
   },
   {
     icon: Users,
     title: "Dedicated Agent",
-    description: "Personal agent to guide you through every step"
-  }
+    description: "Personal agent to guide you through every step",
+  },
 ];
 
 export default function ListProperty() {
@@ -90,10 +114,10 @@ export default function ListProperty() {
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
 
   const toggleAmenity = (amenity: string) => {
-    setSelectedAmenities(prev => 
-      prev.includes(amenity) 
-        ? prev.filter(a => a !== amenity)
-        : [...prev, amenity]
+    setSelectedAmenities((prev) =>
+      prev.includes(amenity)
+        ? prev.filter((a) => a !== amenity)
+        : [...prev, amenity],
     );
   };
 
@@ -112,43 +136,45 @@ export default function ListProperty() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
+
       {/* Hero Section */}
-      <motion.section 
+      <motion.section
         className="bg-gradient-to-r from-luxury-navy to-luxury-blue text-white py-20 relative overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       >
         <div className="absolute inset-0 opacity-10">
-          <div 
+          <div
             className="w-full h-full"
             style={{
-              backgroundImage: "url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.1\"%3E%3Ccircle cx=\"30\" cy=\"30\" r=\"4\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"
+              backgroundImage:
+                'url(\'data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Ccircle cx="30" cy="30" r="4"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\')',
             }}
           />
         </div>
-        
-        <motion.div 
+
+        <motion.div
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          <motion.h1 
+          <motion.h1
             className="text-4xl md:text-6xl font-bold mb-6"
             variants={itemVariants}
           >
             List Your Property
           </motion.h1>
-          
-          <motion.p 
+
+          <motion.p
             className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto"
             variants={itemVariants}
           >
-            Reach thousands of qualified buyers and sell your property faster with our premium listing service.
+            Reach thousands of qualified buyers and sell your property faster
+            with our premium listing service.
           </motion.p>
 
-          <motion.div 
+          <motion.div
             className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12"
             variants={containerVariants}
           >
@@ -163,8 +189,12 @@ export default function ListProperty() {
                     <feature.icon className="h-6 w-6 text-luxury-navy" />
                   </div>
                 </div>
-                <div className="text-sm font-medium text-luxury-gold mb-1">{feature.title}</div>
-                <div className="text-xs text-white/80">{feature.description}</div>
+                <div className="text-sm font-medium text-luxury-gold mb-1">
+                  {feature.title}
+                </div>
+                <div className="text-xs text-white/80">
+                  {feature.description}
+                </div>
               </motion.div>
             ))}
           </motion.div>
@@ -173,7 +203,7 @@ export default function ListProperty() {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Progress Steps */}
-        <motion.div 
+        <motion.div
           className="mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -181,11 +211,11 @@ export default function ListProperty() {
           <div className="flex items-center justify-between mb-8">
             {steps.map((step, index) => (
               <div key={step.id} className="flex items-center">
-                <motion.div 
+                <motion.div
                   className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
-                    currentStep >= step.id 
-                      ? 'bg-luxury-blue text-white' 
-                      : 'bg-gray-200 text-gray-500'
+                    currentStep >= step.id
+                      ? "bg-luxury-blue text-white"
+                      : "bg-gray-200 text-gray-500"
                   }`}
                   whileHover={{ scale: 1.1 }}
                 >
@@ -195,16 +225,18 @@ export default function ListProperty() {
                     step.id
                   )}
                 </motion.div>
-                
+
                 {index < steps.length - 1 && (
-                  <div className={`h-1 w-24 mx-4 ${
-                    currentStep > step.id ? 'bg-luxury-blue' : 'bg-gray-200'
-                  }`} />
+                  <div
+                    className={`h-1 w-24 mx-4 ${
+                      currentStep > step.id ? "bg-luxury-blue" : "bg-gray-200"
+                    }`}
+                  />
                 )}
               </div>
             ))}
           </div>
-          
+
           <div className="text-center">
             <h2 className="text-2xl font-bold text-luxury-navy mb-2">
               {steps[currentStep - 1].title}
@@ -233,7 +265,7 @@ export default function ListProperty() {
                       Property Title
                     </label>
                     <motion.div whileFocus={{ scale: 1.02 }}>
-                      <Input 
+                      <Input
                         placeholder="e.g., Modern Luxury Villa in Beverly Hills"
                         className="border-gray-200 focus:border-luxury-blue transition-colors"
                       />
@@ -247,7 +279,7 @@ export default function ListProperty() {
                     <div className="relative">
                       <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                       <motion.div whileFocus={{ scale: 1.02 }}>
-                        <Input 
+                        <Input
                           placeholder="Enter full address"
                           className="pl-10 border-gray-200 focus:border-luxury-blue transition-colors"
                         />
@@ -299,7 +331,7 @@ export default function ListProperty() {
                       </label>
                       <div className="relative">
                         <Bed className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                        <Input 
+                        <Input
                           type="number"
                           placeholder="0"
                           className="pl-10 border-gray-200 focus:border-luxury-blue transition-colors"
@@ -313,7 +345,7 @@ export default function ListProperty() {
                       </label>
                       <div className="relative">
                         <Bath className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                        <Input 
+                        <Input
                           type="number"
                           placeholder="0"
                           className="pl-10 border-gray-200 focus:border-luxury-blue transition-colors"
@@ -327,7 +359,7 @@ export default function ListProperty() {
                       </label>
                       <div className="relative">
                         <Square className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                        <Input 
+                        <Input
                           type="number"
                           placeholder="0"
                           className="pl-10 border-gray-200 focus:border-luxury-blue transition-colors"
@@ -341,7 +373,7 @@ export default function ListProperty() {
                       </label>
                       <div className="relative">
                         <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                        <Input 
+                        <Input
                           type="number"
                           placeholder="2020"
                           className="pl-10 border-gray-200 focus:border-luxury-blue transition-colors"
@@ -355,7 +387,7 @@ export default function ListProperty() {
                       Property Description
                     </label>
                     <motion.div whileFocus={{ scale: 1.02 }}>
-                      <Textarea 
+                      <Textarea
                         placeholder="Describe your property in detail..."
                         rows={4}
                         className="border-gray-200 focus:border-luxury-blue transition-colors"
@@ -378,15 +410,15 @@ export default function ListProperty() {
                           key={amenity}
                           className={`p-3 border rounded-lg cursor-pointer transition-all ${
                             selectedAmenities.includes(amenity)
-                              ? 'border-luxury-blue bg-luxury-blue/5 text-luxury-blue'
-                              : 'border-gray-200 hover:border-luxury-blue/50'
+                              ? "border-luxury-blue bg-luxury-blue/5 text-luxury-blue"
+                              : "border-gray-200 hover:border-luxury-blue/50"
                           }`}
                           onClick={() => toggleAmenity(amenity)}
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                         >
                           <div className="flex items-center space-x-2">
-                            <Checkbox 
+                            <Checkbox
                               checked={selectedAmenities.includes(amenity)}
                               onChange={() => {}}
                             />
@@ -402,7 +434,7 @@ export default function ListProperty() {
                       Additional Features
                     </label>
                     <motion.div whileFocus={{ scale: 1.02 }}>
-                      <Textarea 
+                      <Textarea
                         placeholder="List any other special features or amenities..."
                         rows={3}
                         className="border-gray-200 focus:border-luxury-blue transition-colors"
@@ -415,7 +447,7 @@ export default function ListProperty() {
                       Neighborhood Highlights
                     </label>
                     <motion.div whileFocus={{ scale: 1.02 }}>
-                      <Textarea 
+                      <Textarea
                         placeholder="Describe the neighborhood, nearby schools, shopping, etc..."
                         rows={3}
                         className="border-gray-200 focus:border-luxury-blue transition-colors"
@@ -432,8 +464,8 @@ export default function ListProperty() {
                     <h3 className="text-lg font-semibold text-luxury-navy mb-4">
                       Upload Property Photos
                     </h3>
-                    
-                    <motion.div 
+
+                    <motion.div
                       className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-luxury-blue transition-colors cursor-pointer"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
@@ -445,16 +477,19 @@ export default function ListProperty() {
                       <p className="text-gray-600 mb-4">
                         Upload high-quality photos to showcase your property
                       </p>
-                      <Button variant="outline" className="hover:border-luxury-blue hover:text-luxury-blue">
+                      <Button
+                        variant="outline"
+                        className="hover:border-luxury-blue hover:text-luxury-blue"
+                      >
                         <Upload className="h-4 w-4 mr-2" />
                         Choose Photos
                       </Button>
                     </motion.div>
 
                     <div className="text-sm text-gray-500 mt-2">
-                      • Upload at least 5 high-quality photos
-                      • Include exterior, interior, and key feature shots
-                      • Maximum 20 photos, 5MB each
+                      • Upload at least 5 high-quality photos • Include
+                      exterior, interior, and key feature shots • Maximum 20
+                      photos, 5MB each
                     </div>
                   </div>
 
@@ -470,8 +505,8 @@ export default function ListProperty() {
                             className="relative group"
                             whileHover={{ scale: 1.05 }}
                           >
-                            <img 
-                              src={image} 
+                            <img
+                              src={image}
                               alt={`Property ${index + 1}`}
                               className="w-full h-24 object-cover rounded-lg"
                             />
@@ -501,7 +536,7 @@ export default function ListProperty() {
                       <div className="relative">
                         <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                         <motion.div whileFocus={{ scale: 1.02 }}>
-                          <Input 
+                          <Input
                             type="number"
                             placeholder="2,850,000"
                             className="pl-10 border-gray-200 focus:border-luxury-blue transition-colors"
@@ -534,7 +569,7 @@ export default function ListProperty() {
                         Available From
                       </label>
                       <motion.div whileFocus={{ scale: 1.02 }}>
-                        <Input 
+                        <Input
                           type="date"
                           className="border-gray-200 focus:border-luxury-blue transition-colors"
                         />
@@ -565,13 +600,13 @@ export default function ListProperty() {
                     </label>
                     <div className="grid md:grid-cols-2 gap-4">
                       <motion.div whileFocus={{ scale: 1.02 }}>
-                        <Input 
+                        <Input
                           placeholder="Contact Name"
                           className="border-gray-200 focus:border-luxury-blue transition-colors"
                         />
                       </motion.div>
                       <motion.div whileFocus={{ scale: 1.02 }}>
-                        <Input 
+                        <Input
                           placeholder="Phone Number"
                           type="tel"
                           className="border-gray-200 focus:border-luxury-blue transition-colors"
@@ -610,15 +645,15 @@ export default function ListProperty() {
         </motion.div>
 
         {/* Navigation Buttons */}
-        <motion.div 
+        <motion.div
           className="flex justify-between mt-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               onClick={prevStep}
               disabled={currentStep === 1}
               className="px-8"
@@ -626,17 +661,17 @@ export default function ListProperty() {
               Previous
             </Button>
           </motion.div>
-          
+
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button 
+            <Button
               onClick={currentStep === steps.length ? undefined : nextStep}
               className={`px-8 ${
-                currentStep === steps.length 
-                  ? 'bg-emerald-500 hover:bg-emerald-600' 
-                  : 'bg-luxury-blue hover:bg-blue-600'
+                currentStep === steps.length
+                  ? "bg-emerald-500 hover:bg-emerald-600"
+                  : "bg-luxury-blue hover:bg-blue-600"
               } text-white`}
             >
-              {currentStep === steps.length ? 'Publish Listing' : 'Next Step'}
+              {currentStep === steps.length ? "Publish Listing" : "Next Step"}
             </Button>
           </motion.div>
         </motion.div>

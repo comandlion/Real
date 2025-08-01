@@ -17,7 +17,7 @@ import {
   Building,
   ArrowRight,
   Shield,
-  CheckCircle
+  CheckCircle,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -26,9 +26,9 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1
-    }
-  }
+      staggerChildren: 0.1,
+    },
+  },
 };
 
 const itemVariants = {
@@ -37,27 +37,27 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5
-    }
-  }
+      duration: 0.5,
+    },
+  },
 };
 
 const benefits = [
   {
     icon: CheckCircle,
     title: "Save Favorites",
-    description: "Keep track of properties you love"
+    description: "Keep track of properties you love",
   },
   {
     icon: Shield,
     title: "Price Alerts",
-    description: "Get notified when prices change"
+    description: "Get notified when prices change",
   },
   {
     icon: Building,
     title: "Exclusive Access",
-    description: "View premium listings first"
-  }
+    description: "View premium listings first",
+  },
 ];
 
 export default function SignIn() {
@@ -68,7 +68,7 @@ export default function SignIn() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
+
       <div className="min-h-[calc(100vh-80px)] flex items-center justify-center py-12">
         <div className="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -84,11 +84,12 @@ export default function SignIn() {
                   Welcome to Premium Realty
                 </h1>
                 <p className="text-xl text-gray-600 mb-8">
-                  Join thousands of users who trust us to find their perfect property. 
-                  Sign in to unlock exclusive features and personalized recommendations.
+                  Join thousands of users who trust us to find their perfect
+                  property. Sign in to unlock exclusive features and
+                  personalized recommendations.
                 </p>
 
-                <motion.div 
+                <motion.div
                   className="space-y-6"
                   variants={containerVariants}
                   initial="hidden"
@@ -128,9 +129,9 @@ export default function SignIn() {
                     <motion.button
                       onClick={() => setIsSignUp(false)}
                       className={`flex-1 py-2 px-4 rounded-md transition-all duration-300 ${
-                        !isSignUp 
-                          ? 'bg-white text-luxury-blue shadow-sm font-medium' 
-                          : 'text-gray-600 hover:text-luxury-blue'
+                        !isSignUp
+                          ? "bg-white text-luxury-blue shadow-sm font-medium"
+                          : "text-gray-600 hover:text-luxury-blue"
                       }`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
@@ -140,9 +141,9 @@ export default function SignIn() {
                     <motion.button
                       onClick={() => setIsSignUp(true)}
                       className={`flex-1 py-2 px-4 rounded-md transition-all duration-300 ${
-                        isSignUp 
-                          ? 'bg-white text-luxury-blue shadow-sm font-medium' 
-                          : 'text-gray-600 hover:text-luxury-blue'
+                        isSignUp
+                          ? "bg-white text-luxury-blue shadow-sm font-medium"
+                          : "text-gray-600 hover:text-luxury-blue"
                       }`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
@@ -152,37 +153,54 @@ export default function SignIn() {
                   </div>
 
                   <motion.div
-                    key={isSignUp ? 'signup' : 'signin'}
+                    key={isSignUp ? "signup" : "signin"}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
                   >
                     <h2 className="text-2xl font-bold text-luxury-navy mb-2">
-                      {isSignUp ? 'Create your account' : 'Welcome back'}
+                      {isSignUp ? "Create your account" : "Welcome back"}
                     </h2>
                     <p className="text-gray-600 mb-6">
-                      {isSignUp 
-                        ? 'Join Premium Realty and start your property journey today' 
-                        : 'Sign in to access your saved properties and preferences'
-                      }
+                      {isSignUp
+                        ? "Join Premium Realty and start your property journey today"
+                        : "Sign in to access your saved properties and preferences"}
                     </p>
 
                     {/* Social Login */}
                     <div className="space-y-3 mb-6">
-                      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                        <Button variant="outline" className="w-full h-12 border-gray-200 hover:border-luxury-blue">
+                      <motion.div
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <Button
+                          variant="outline"
+                          className="w-full h-12 border-gray-200 hover:border-luxury-blue"
+                        >
                           Continue with Google
                         </Button>
                       </motion.div>
 
                       <div className="grid grid-cols-2 gap-3">
-                        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                          <Button variant="outline" className="w-full h-12 border-gray-200 hover:border-luxury-blue">
+                        <motion.div
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <Button
+                            variant="outline"
+                            className="w-full h-12 border-gray-200 hover:border-luxury-blue"
+                          >
                             Facebook
                           </Button>
                         </motion.div>
-                        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                          <Button variant="outline" className="w-full h-12 border-gray-200 hover:border-luxury-blue">
+                        <motion.div
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <Button
+                            variant="outline"
+                            className="w-full h-12 border-gray-200 hover:border-luxury-blue"
+                          >
                             Apple
                           </Button>
                         </motion.div>
@@ -192,7 +210,9 @@ export default function SignIn() {
                     <div className="relative mb-6">
                       <Separator />
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="bg-white px-4 text-sm text-gray-500">or continue with email</span>
+                        <span className="bg-white px-4 text-sm text-gray-500">
+                          or continue with email
+                        </span>
                       </div>
                     </div>
 
@@ -203,8 +223,8 @@ export default function SignIn() {
                           <motion.div whileFocus={{ scale: 1.02 }}>
                             <div className="relative">
                               <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                              <Input 
-                                placeholder="First Name" 
+                              <Input
+                                placeholder="First Name"
                                 className="pl-10 h-12 border-gray-200 focus:border-luxury-blue transition-colors"
                               />
                             </div>
@@ -212,8 +232,8 @@ export default function SignIn() {
                           <motion.div whileFocus={{ scale: 1.02 }}>
                             <div className="relative">
                               <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                              <Input 
-                                placeholder="Last Name" 
+                              <Input
+                                placeholder="Last Name"
                                 className="pl-10 h-12 border-gray-200 focus:border-luxury-blue transition-colors"
                               />
                             </div>
@@ -224,9 +244,9 @@ export default function SignIn() {
                       <motion.div whileFocus={{ scale: 1.02 }}>
                         <div className="relative">
                           <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                          <Input 
+                          <Input
                             type="email"
-                            placeholder="Email Address" 
+                            placeholder="Email Address"
                             className="pl-10 h-12 border-gray-200 focus:border-luxury-blue transition-colors"
                           />
                         </div>
@@ -236,9 +256,9 @@ export default function SignIn() {
                         <motion.div whileFocus={{ scale: 1.02 }}>
                           <div className="relative">
                             <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                            <Input 
+                            <Input
                               type="tel"
-                              placeholder="Phone Number" 
+                              placeholder="Phone Number"
                               className="pl-10 h-12 border-gray-200 focus:border-luxury-blue transition-colors"
                             />
                           </div>
@@ -248,9 +268,9 @@ export default function SignIn() {
                       <motion.div whileFocus={{ scale: 1.02 }}>
                         <div className="relative">
                           <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                          <Input 
+                          <Input
                             type={showPassword ? "text" : "password"}
-                            placeholder="Password" 
+                            placeholder="Password"
                             className="pl-10 pr-10 h-12 border-gray-200 focus:border-luxury-blue transition-colors"
                           />
                           <motion.button
@@ -260,7 +280,11 @@ export default function SignIn() {
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
                           >
-                            {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                            {showPassword ? (
+                              <EyeOff className="h-4 w-4" />
+                            ) : (
+                              <Eye className="h-4 w-4" />
+                            )}
                           </motion.button>
                         </div>
                       </motion.div>
@@ -269,19 +293,25 @@ export default function SignIn() {
                         <motion.div whileFocus={{ scale: 1.02 }}>
                           <div className="relative">
                             <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                            <Input 
+                            <Input
                               type={showConfirmPassword ? "text" : "password"}
-                              placeholder="Confirm Password" 
+                              placeholder="Confirm Password"
                               className="pl-10 pr-10 h-12 border-gray-200 focus:border-luxury-blue transition-colors"
                             />
                             <motion.button
                               type="button"
-                              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                              onClick={() =>
+                                setShowConfirmPassword(!showConfirmPassword)
+                              }
                               className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                               whileHover={{ scale: 1.1 }}
                               whileTap={{ scale: 0.9 }}
                             >
-                              {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                              {showConfirmPassword ? (
+                                <EyeOff className="h-4 w-4" />
+                              ) : (
+                                <Eye className="h-4 w-4" />
+                              )}
                             </motion.button>
                           </div>
                         </motion.div>
@@ -291,11 +321,17 @@ export default function SignIn() {
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-2">
                             <Checkbox id="remember" />
-                            <label htmlFor="remember" className="text-sm text-gray-600">
+                            <label
+                              htmlFor="remember"
+                              className="text-sm text-gray-600"
+                            >
                               Remember me
                             </label>
                           </div>
-                          <Link to="/forgot-password" className="text-sm text-luxury-blue hover:underline">
+                          <Link
+                            to="/forgot-password"
+                            className="text-sm text-luxury-blue hover:underline"
+                          >
                             Forgot password?
                           </Link>
                         </div>
@@ -304,22 +340,34 @@ export default function SignIn() {
                       {isSignUp && (
                         <div className="flex items-start space-x-2">
                           <Checkbox id="terms" className="mt-1" />
-                          <label htmlFor="terms" className="text-sm text-gray-600">
-                            I agree to the{' '}
-                            <Link to="/terms" className="text-luxury-blue hover:underline">
+                          <label
+                            htmlFor="terms"
+                            className="text-sm text-gray-600"
+                          >
+                            I agree to the{" "}
+                            <Link
+                              to="/terms"
+                              className="text-luxury-blue hover:underline"
+                            >
                               Terms of Service
-                            </Link>{' '}
-                            and{' '}
-                            <Link to="/privacy" className="text-luxury-blue hover:underline">
+                            </Link>{" "}
+                            and{" "}
+                            <Link
+                              to="/privacy"
+                              className="text-luxury-blue hover:underline"
+                            >
                               Privacy Policy
                             </Link>
                           </label>
                         </div>
                       )}
 
-                      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                      <motion.div
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
                         <Button className="w-full h-12 bg-luxury-blue hover:bg-blue-600 text-white text-lg font-semibold">
-                          {isSignUp ? 'Create Account' : 'Sign In'}
+                          {isSignUp ? "Create Account" : "Sign In"}
                           <ArrowRight className="h-5 w-5 ml-2" />
                         </Button>
                       </motion.div>
@@ -327,13 +375,15 @@ export default function SignIn() {
 
                     <div className="mt-6 text-center">
                       <p className="text-gray-600">
-                        {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
+                        {isSignUp
+                          ? "Already have an account?"
+                          : "Don't have an account?"}{" "}
                         <motion.button
                           onClick={() => setIsSignUp(!isSignUp)}
                           className="text-luxury-blue hover:underline font-medium"
                           whileHover={{ scale: 1.05 }}
                         >
-                          {isSignUp ? 'Sign in' : 'Sign up for free'}
+                          {isSignUp ? "Sign in" : "Sign up for free"}
                         </motion.button>
                       </p>
                     </div>
@@ -342,7 +392,7 @@ export default function SignIn() {
               </Card>
 
               {/* Trust Indicators */}
-              <motion.div 
+              <motion.div
                 className="mt-6 text-center text-sm text-gray-500"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
