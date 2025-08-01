@@ -11,9 +11,9 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2
-    }
-  }
+      staggerChildren: 0.2,
+    },
+  },
 };
 
 const itemVariants = {
@@ -22,15 +22,30 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5
-    }
-  }
+      duration: 0.5,
+    },
+  },
 };
 
 const quickLinks = [
-  { to: "/", label: "Homepage", icon: Home, description: "Return to our main page" },
-  { to: "/properties", label: "Browse Properties", icon: Building, description: "Explore available listings" },
-  { to: "/contact", label: "Contact Us", icon: MapPin, description: "Get help from our team" }
+  {
+    to: "/",
+    label: "Homepage",
+    icon: Home,
+    description: "Return to our main page",
+  },
+  {
+    to: "/properties",
+    label: "Browse Properties",
+    icon: Building,
+    description: "Explore available listings",
+  },
+  {
+    to: "/contact",
+    label: "Contact Us",
+    icon: MapPin,
+    description: "Get help from our team",
+  },
 ];
 
 const NotFound = () => {
@@ -46,8 +61,8 @@ const NotFound = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <Header />
-      
-      <motion.div 
+
+      <motion.div
         className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20"
         variants={containerVariants}
         initial="hidden"
@@ -55,42 +70,40 @@ const NotFound = () => {
       >
         <div className="text-center">
           {/* Animated 404 */}
-          <motion.div 
-            className="mb-8"
-            variants={itemVariants}
-          >
+          <motion.div className="mb-8" variants={itemVariants}>
             <motion.div
               className="text-8xl md:text-9xl font-bold bg-gradient-to-r from-luxury-blue to-blue-600 bg-clip-text text-transparent"
-              animate={{ 
+              animate={{
                 scale: [1, 1.05, 1],
-                rotate: [0, 1, -1, 0]
+                rotate: [0, 1, -1, 0],
               }}
-              transition={{ 
+              transition={{
                 duration: 4,
                 repeat: Infinity,
-                repeatType: "reverse"
+                repeatType: "reverse",
               }}
             >
               404
             </motion.div>
           </motion.div>
-          
-          <motion.h1 
+
+          <motion.h1
             className="text-4xl md:text-5xl font-bold text-luxury-navy mb-6"
             variants={itemVariants}
           >
             Oops! Page Not Found
           </motion.h1>
-          
-          <motion.p 
+
+          <motion.p
             className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto"
             variants={itemVariants}
           >
-            The page you're looking for seems to have moved or doesn't exist. But don't worry, we'll help you find what you're looking for!
+            The page you're looking for seems to have moved or doesn't exist.
+            But don't worry, we'll help you find what you're looking for!
           </motion.p>
 
           {/* Search suggestion */}
-          <motion.div 
+          <motion.div
             className="mb-12 max-w-md mx-auto"
             variants={itemVariants}
           >
@@ -110,24 +123,33 @@ const NotFound = () => {
               </motion.button>
             </div>
           </motion.div>
-          
+
           {/* Quick action buttons */}
-          <motion.div 
+          <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
             variants={itemVariants}
           >
             <Link to="/">
-              <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
+              <motion.div
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 <Button className="bg-luxury-blue hover:bg-blue-600 text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
                   <Home className="h-5 w-5 mr-2" />
                   Return to Home
                 </Button>
               </motion.div>
             </Link>
-            
+
             <Link to="/properties">
-              <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
-                <Button variant="outline" className="border-luxury-blue text-luxury-blue hover:bg-luxury-blue hover:text-white px-8 py-3 text-lg font-semibold transition-all duration-300 group">
+              <motion.div
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button
+                  variant="outline"
+                  className="border-luxury-blue text-luxury-blue hover:bg-luxury-blue hover:text-white px-8 py-3 text-lg font-semibold transition-all duration-300 group"
+                >
                   <ArrowLeft className="h-5 w-5 mr-2 group-hover:-translate-x-1 transition-transform" />
                   Browse Properties
                 </Button>
@@ -136,7 +158,7 @@ const NotFound = () => {
           </motion.div>
 
           {/* Quick links grid */}
-          <motion.div 
+          <motion.div
             className="grid md:grid-cols-3 gap-6 mb-12"
             variants={containerVariants}
           >
@@ -145,10 +167,10 @@ const NotFound = () => {
                 <motion.div
                   className="p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group"
                   variants={itemVariants}
-                  whileHover={{ 
+                  whileHover={{
                     scale: 1.02,
                     y: -5,
-                    boxShadow: "0 10px 25px rgba(0,0,0,0.1)"
+                    boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
                   }}
                 >
                   <div className="flex justify-center mb-4">
@@ -166,7 +188,7 @@ const NotFound = () => {
           </motion.div>
 
           {/* Help section */}
-          <motion.div 
+          <motion.div
             className="bg-gradient-to-r from-luxury-blue/5 to-blue-50 rounded-2xl p-8 border border-luxury-blue/10"
             variants={itemVariants}
           >
@@ -174,11 +196,18 @@ const NotFound = () => {
               Still can't find what you're looking for?
             </h3>
             <p className="text-gray-600 mb-6">
-              Our support team is here to help you navigate and find exactly what you need.
+              Our support team is here to help you navigate and find exactly
+              what you need.
             </p>
             <Link to="/contact">
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button variant="outline" className="border-luxury-blue text-luxury-blue hover:bg-luxury-blue hover:text-white transition-all duration-300">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button
+                  variant="outline"
+                  className="border-luxury-blue text-luxury-blue hover:bg-luxury-blue hover:text-white transition-all duration-300"
+                >
                   Contact Support
                 </Button>
               </motion.div>
@@ -186,7 +215,7 @@ const NotFound = () => {
           </motion.div>
         </div>
       </motion.div>
-      
+
       <Footer />
     </div>
   );

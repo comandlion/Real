@@ -1,6 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, Phone, Mail, Search, User, Heart, X, Home as HomeIcon, Building, Users, Info, MessageCircle } from "lucide-react";
+import {
+  Menu,
+  Phone,
+  Mail,
+  Search,
+  User,
+  Heart,
+  X,
+  Home as HomeIcon,
+  Building,
+  Users,
+  Info,
+  MessageCircle,
+} from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -14,8 +27,8 @@ export function Header() {
       setIsScrolled(window.scrollY > 10);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Close mobile menu when route changes
@@ -38,46 +51,50 @@ export function Header() {
   };
 
   return (
-    <motion.header 
+    <motion.header
       className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100' 
-          : 'bg-white shadow-sm border-b'
+        isScrolled
+          ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100"
+          : "bg-white shadow-sm border-b"
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
       {/* Enhanced Top bar with contact info */}
-      <motion.div 
+      <motion.div
         className="bg-luxury-navy text-white py-2 px-4 hidden md:block"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center text-sm">
-          <motion.div 
+          <motion.div
             className="flex items-center space-x-6"
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <motion.div 
+            <motion.div
               className="flex items-center space-x-2 group cursor-pointer"
               whileHover={{ scale: 1.05 }}
             >
               <Phone className="h-4 w-4 group-hover:text-luxury-gold transition-colors" />
-              <span className="group-hover:text-luxury-gold transition-colors">(555) 123-4567</span>
+              <span className="group-hover:text-luxury-gold transition-colors">
+                (555) 123-4567
+              </span>
             </motion.div>
-            <motion.div 
+            <motion.div
               className="flex items-center space-x-2 group cursor-pointer"
               whileHover={{ scale: 1.05 }}
             >
               <Mail className="h-4 w-4 group-hover:text-luxury-gold transition-colors" />
-              <span className="group-hover:text-luxury-gold transition-colors">contact@premiumrealty.com</span>
+              <span className="group-hover:text-luxury-gold transition-colors">
+                contact@premiumrealty.com
+              </span>
             </motion.div>
           </motion.div>
-          <motion.div 
+          <motion.div
             className="text-sm"
             initial={{ x: 50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -93,17 +110,19 @@ export function Header() {
         <div className="flex justify-between items-center h-16">
           {/* Enhanced Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
-            <motion.div 
+            <motion.div
               className="bg-luxury-blue text-white rounded-lg p-2 group-hover:bg-blue-600 transition-colors"
-              whileHover={{ 
+              whileHover={{
                 scale: 1.1,
-                rotate: 5
+                rotate: 5,
               }}
               whileTap={{ scale: 0.9 }}
             >
-              <div className="h-6 w-6 flex items-center justify-center font-bold text-lg">P</div>
+              <div className="h-6 w-6 flex items-center justify-center font-bold text-lg">
+                P
+              </div>
             </motion.div>
-            <motion.div 
+            <motion.div
               className="text-xl font-bold text-luxury-navy"
               whileHover={{ x: 5 }}
               transition={{ duration: 0.2 }}
@@ -119,12 +138,12 @@ export function Header() {
                 <motion.div
                   className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 relative ${
                     isActivePath(item.path)
-                      ? 'text-luxury-blue bg-luxury-blue/10'
-                      : 'text-gray-700 hover:text-luxury-blue hover:bg-luxury-blue/5'
+                      ? "text-luxury-blue bg-luxury-blue/10"
+                      : "text-gray-700 hover:text-luxury-blue hover:bg-luxury-blue/5"
                   }`}
-                  whileHover={{ 
+                  whileHover={{
                     scale: 1.05,
-                    y: -2
+                    y: -2,
                   }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -132,14 +151,14 @@ export function Header() {
                     <item.icon className="h-4 w-4" />
                     <span>{item.label}</span>
                   </span>
-                  
+
                   {isActivePath(item.path) && (
                     <motion.div
                       className="absolute bottom-0 left-1/2 w-1 h-1 bg-luxury-blue rounded-full"
                       layoutId="activeIndicator"
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      style={{ x: '-50%' }}
+                      style={{ x: "-50%" }}
                     />
                   )}
                 </motion.div>
@@ -149,33 +168,50 @@ export function Header() {
 
           {/* Enhanced Right side actions */}
           <div className="flex items-center space-x-2">
-            <motion.div 
+            <motion.div
               className="hidden md:flex items-center space-x-2"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.5 }}
             >
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button variant="ghost" size="sm" className="hidden lg:flex items-center space-x-2 hover:bg-luxury-blue/10 hover:text-luxury-blue transition-all">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="hidden lg:flex items-center space-x-2 hover:bg-luxury-blue/10 hover:text-luxury-blue transition-all"
+                >
                   <Heart className="h-4 w-4" />
                   <span>Favorites</span>
                 </Button>
               </motion.div>
-              
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button variant="ghost" size="sm" className="hidden lg:flex items-center space-x-2 hover:bg-luxury-blue/10 hover:text-luxury-blue transition-all">
+
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="hidden lg:flex items-center space-x-2 hover:bg-luxury-blue/10 hover:text-luxury-blue transition-all"
+                >
                   <User className="h-4 w-4" />
                   <span>Sign In</span>
                 </Button>
               </motion.div>
-              
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 <Button className="bg-luxury-blue hover:bg-blue-600 text-white transition-all duration-300 shadow-lg hover:shadow-xl">
                   List Property
                 </Button>
               </motion.div>
             </motion.div>
-            
+
             {/* Enhanced Mobile menu button */}
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
               <Button
@@ -222,7 +258,7 @@ export function Header() {
               transition={{ duration: 0.3 }}
               className="md:hidden bg-white border-t border-gray-100 overflow-hidden"
             >
-              <motion.div 
+              <motion.div
                 className="py-4 space-y-2"
                 initial={{ y: -20 }}
                 animate={{ y: 0 }}
@@ -234,8 +270,8 @@ export function Header() {
                     <motion.div
                       className={`flex items-center space-x-3 px-4 py-3 rounded-lg mx-2 font-medium transition-all ${
                         isActivePath(item.path)
-                          ? 'text-luxury-blue bg-luxury-blue/10'
-                          : 'text-gray-700 hover:text-luxury-blue hover:bg-luxury-blue/5'
+                          ? "text-luxury-blue bg-luxury-blue/10"
+                          : "text-gray-700 hover:text-luxury-blue hover:bg-luxury-blue/5"
                       }`}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -248,28 +284,43 @@ export function Header() {
                     </motion.div>
                   </Link>
                 ))}
-                
-                <motion.div 
+
+                <motion.div
                   className="pt-4 border-t border-gray-100 mx-2 space-y-2"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.5 }}
                 >
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                    <Button variant="ghost" className="w-full justify-start mb-2 hover:bg-luxury-blue/10 hover:text-luxury-blue">
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start mb-2 hover:bg-luxury-blue/10 hover:text-luxury-blue"
+                    >
                       <Heart className="h-4 w-4 mr-2" />
                       Favorites
                     </Button>
                   </motion.div>
-                  
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                    <Button variant="ghost" className="w-full justify-start mb-2 hover:bg-luxury-blue/10 hover:text-luxury-blue">
+
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start mb-2 hover:bg-luxury-blue/10 hover:text-luxury-blue"
+                    >
                       <User className="h-4 w-4 mr-2" />
                       Sign In
                     </Button>
                   </motion.div>
-                  
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
                     <Button className="w-full bg-luxury-blue hover:bg-blue-600 text-white transition-all duration-300">
                       List Property
                     </Button>

@@ -63,7 +63,7 @@ export default {
         "luxury-gold": "hsl(var(--luxury-gold))",
         "success-green": "hsl(var(--success-green))",
         "warm-gray": "hsl(var(--warm-gray))",
-        "light-gray": "hsl(var(--light-gray))"
+        "light-gray": "hsl(var(--light-gray))",
       },
       borderRadius: {
         lg: "var(--radius)",
