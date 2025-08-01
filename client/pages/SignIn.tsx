@@ -15,7 +15,7 @@ import {
   User,
   Phone,
   Building,
-  Chrome,
+  Circle,
   Globe,
   Smartphone,
   ArrowRight,
