@@ -174,7 +174,7 @@ export default function SignIn() {
                     <div className="space-y-3 mb-6">
                       <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                         <Button variant="outline" className="w-full h-12 border-gray-200 hover:border-luxury-blue">
-                          <Chrome className="h-5 w-5 mr-3" />
+                          <Circle className="h-5 w-5 mr-3" />
                           Continue with Google
                         </Button>
                       </motion.div>
