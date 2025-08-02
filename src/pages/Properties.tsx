@@ -175,7 +175,7 @@ export default function Properties() {
           >
             <motion.div className="text-center" variants={itemVariants}>
               <div className="text-2xl font-bold text-luxury-gold">
-                {properties.length}
+                {propertiesResponse?.count || 0}
               </div>
               <div className="text-sm text-white/80">Total Properties</div>
             </motion.div>
@@ -192,7 +192,9 @@ export default function Properties() {
               <div className="text-sm text-white/80">Land Plots</div>
             </motion.div>
             <motion.div className="text-center" variants={itemVariants}>
-              <div className="text-2xl font-bold text-luxury-gold">5</div>
+              <div className="text-2xl font-bold text-luxury-gold">
+                {new Set(properties.map(p => p.city)).size}
+              </div>
               <div className="text-sm text-white/80">Cities</div>
             </motion.div>
           </motion.div>
