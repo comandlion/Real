@@ -719,7 +719,7 @@ export default function Properties() {
                               animate={{ scale: 1 }}
                               transition={{ delay: index * 0.05 }}
                             >
-                              {formatPrice(property.price, property.type)}
+                              {formatPrice(property.price, property.listing_type)}
                             </motion.div>
                           </div>
 
