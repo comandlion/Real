@@ -220,7 +220,7 @@ export default function Properties() {
                 className="data-[state=active]:bg-luxury-blue data-[state=active]:text-white"
               >
                 <Building className="h-4 w-4 mr-2" />
-                All Properties ({properties.length})
+                All Properties ({propertiesResponse?.count || 0})
               </TabsTrigger>
               <TabsTrigger
                 value="real_estate"
