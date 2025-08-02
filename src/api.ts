@@ -27,7 +27,7 @@ class PropertyAPI {
     endpoint: string,
     options?: RequestInit,
   ): Promise<T> {
-    const response = await fetch(`${API}${endpoint}`, {
+    const response = await fetch(`http://localhost:8000/api${endpoint}`, {
       headers: {
         "Content-Type": "application/json",
         ...options?.headers,
@@ -203,4 +203,3 @@ export const propertyAPI = new PropertyAPI();
 //         throw error;
 //     }
 // };
-
