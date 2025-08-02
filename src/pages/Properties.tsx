@@ -639,11 +639,16 @@ export default function Properties() {
                           </Link>
 
                           <div className="absolute top-3 left-3 flex space-x-2">
-                            <Badge
-                              className={`${getTagColor(property.tag)} text-white shadow-lg`}
-                            >
-                              {property.tag}
-                            </Badge>
+                            {property.featured && (
+                              <Badge className="bg-luxury-blue text-white shadow-lg">
+                                Featured
+                              </Badge>
+                            )}
+                            {property.premium_listing && (
+                              <Badge className="bg-luxury-gold text-white shadow-lg">
+                                Premium
+                              </Badge>
+                            )}
                             <Badge
                               className={`${property.category === "land" ? "bg-emerald-500" : "bg-luxury-blue"} text-white shadow-lg`}
                             >
