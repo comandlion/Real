@@ -746,27 +746,27 @@ export default function Properties() {
                             <div className="grid grid-cols-3 gap-2 text-sm text-gray-600 mb-4">
                               <div className="flex items-center justify-center p-2 bg-gray-50 rounded-lg">
                                 <Bed className="h-4 w-4 mr-1" />
-                                <span>{property.beds || "N/A"}</span>
+                                <span>{property.bedrooms || "N/A"}</span>
                               </div>
                               <div className="flex items-center justify-center p-2 bg-gray-50 rounded-lg">
                                 <Bath className="h-4 w-4 mr-1" />
-                                <span>{property.baths || "N/A"}</span>
+                                <span>{property.bathrooms || "N/A"}</span>
                               </div>
                               <div className="flex items-center justify-center p-2 bg-gray-50 rounded-lg">
                                 <Square className="h-4 w-4 mr-1" />
-                                <span>{property.sqft.toLocaleString()}</span>
+                                <span>{property.total_area?.toLocaleString()}</span>
                               </div>
                             </div>
                           ) : (
                             <div className="grid grid-cols-2 gap-2 text-sm text-gray-600 mb-4">
                               <div className="flex items-center justify-center p-2 bg-gray-50 rounded-lg">
                                 <Ruler className="h-4 w-4 mr-1" />
-                                <span>{property.lotSize}</span>
+                                <span>{property.lot_size} acres</span>
                               </div>
                               <div className="flex items-center justify-center p-2 bg-gray-50 rounded-lg">
                                 <Square className="h-4 w-4 mr-1" />
                                 <span>
-                                  {property.sqft.toLocaleString()} sqft
+                                  {property.total_area?.toLocaleString()} sqft
                                 </span>
                               </div>
                             </div>
