@@ -101,6 +101,34 @@ export default function Properties() {
   );
   const landProperties = properties.filter((p) => p.category === "land");
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="flex items-center justify-center h-96">
+          <Loader2 className="h-8 w-8 animate-spin text-luxury-blue" />
+          <span className="ml-2 text-gray-600">Loading properties...</span>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="flex items-center justify-center h-96">
+          <div className="text-center">
+            <h2 className="text-xl font-semibold text-gray-800 mb-2">Unable to load properties</h2>
+            <p className="text-gray-600">Please try again later or contact support.</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
