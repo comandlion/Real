@@ -42,23 +42,38 @@ export default function Properties() {
   const [viewMode, setViewMode] = useState<"grid" | "list" | "map">("grid");
   const [priceRange, setPriceRange] = useState([0, 5000000]);
   const [showFilters, setShowFilters] = useState(false);
-  const [activeCategory, setActiveCategory] = useState< "all" | "real_estate" | "land" >("all");
-  const [filteredProperties, setFilteredProperties] = useState(properties);
-  const formatPrice = (price: number, type: string) => {
-    if (type === "For Rent") {
+  const [activeCategory, setActiveCategory] = useState<"all" | "real_estate" | "land">("all");
+
+  // Build filters for API call
+  const filters = useMemo<PropertySearchFilters>(() => {
+    const apiFilters: PropertySearchFilters = {};
+
+    if (activeCategory !== "all") {
+      apiFilters.category = activeCategory as PropertyCategory;
+    }
+
+    if (priceRange[0] > 0 || priceRange[1] < 5000000) {
+      apiFilters.price_range = {
+        min: priceRange[0],
+        max: priceRange[1],
+      };
+    }
+
+    return apiFilters;
+  }, [activeCategory, priceRange]);
+
+  // Fetch properties from Django API
+  const { data: propertiesResponse, isLoading, error } = useProperties(filters);
+  const properties = propertiesResponse?.results || [];
+
+  const formatPrice = (price: number, listing_type: string) => {
+    if (listing_type === "rent") {
       return `$${price.toLocaleString()}/month`;
     }
     return `$${price.toLocaleString()}`;
   };
 
   const filterProperties = (category: "all" | "real_estate" | "land") => {
-    if (category === "all") {
-      setFilteredProperties(properties);
-    } else {
-      setFilteredProperties(
-        properties.filter((prop) => prop.category === category),
-      );
-    }
     setActiveCategory(category);
   };
 
