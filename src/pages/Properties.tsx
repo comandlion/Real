@@ -584,16 +584,16 @@ export default function Properties() {
                   transition={{ duration: 0.3 }}
                 >
                   <PropertyMap
-                    properties={filteredProperties.map((prop) => ({
+                    properties={properties.map((prop) => ({
                       id: prop.id,
                       title: prop.title,
-                      location: prop.location,
-                      price: formatPrice(prop.price, prop.type),
-                      lat: prop.coordinates.lat,
-                      lng: prop.coordinates.lng,
+                      location: `${prop.city}, ${prop.state}`,
+                      price: formatPrice(prop.price, prop.listing_type),
+                      lat: prop.coordinates?.lat || prop.latitude,
+                      lng: prop.coordinates?.lng || prop.longitude,
                       type: prop.category,
-                      propertyType: prop.propertyType,
-                      image: prop.image,
+                      propertyType: prop.real_estate_type || prop.land_type,
+                      image: prop.media?.images?.[0] || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
                     }))}
                     height="600px"
                     className="w-full"
