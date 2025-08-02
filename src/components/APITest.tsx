@@ -31,7 +31,9 @@ export function APITest() {
               Connection Failed
             </h3>
             <p className="text-red-600 text-sm">
-              {error instanceof Error ? error.message : "Failed to connect to Django API"}
+              {error instanceof Error
+                ? error.message
+                : "Failed to connect to Django API"}
             </p>
             <p className="text-gray-600 text-sm mt-2">
               Make sure your Django server is running on http://localhost:8000
@@ -47,7 +49,7 @@ export function APITest() {
                 Successfully connected to Django API!
               </span>
             </div>
-            
+
             <div className="grid grid-cols-2 gap-4">
               <div className="text-center p-4 bg-green-50 rounded-lg">
                 <div className="text-2xl font-bold text-green-700">
@@ -84,7 +86,9 @@ export function APITest() {
                         </div>
                         <Badge
                           variant={
-                            property.category === "land" ? "secondary" : "default"
+                            property.category === "land"
+                              ? "secondary"
+                              : "default"
                           }
                         >
                           {property.category}

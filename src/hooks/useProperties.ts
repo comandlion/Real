@@ -41,7 +41,8 @@ export function useIncrementViews() {
 
 export function useSearchProperties() {
   return useMutation({
-    mutationFn: (filters: PropertySearchFilters) => propertyAPI.searchProperties(filters),
+    mutationFn: (filters: PropertySearchFilters) =>
+      propertyAPI.searchProperties(filters),
   });
 }
 

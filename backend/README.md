@@ -35,6 +35,7 @@ python setup.py
 ```
 
 This will:
+
 - Create database migrations
 - Set up the database
 - Create a superuser account
@@ -51,6 +52,7 @@ The API will be available at `http://localhost:8000/api/`
 ## API Endpoints
 
 ### Properties
+
 - `GET /api/properties/` - List all properties
 - `GET /api/properties/{id}/` - Property details
 - `POST /api/properties/{id}/increment_views/` - Track property views
@@ -59,10 +61,12 @@ The API will be available at `http://localhost:8000/api/`
 - `POST /api/properties/search/` - Advanced search
 
 ### Agents
+
 - `GET /api/agents/` - List all agents
 - `GET /api/agents/{id}/` - Agent details
 
 ### Authentication
+
 - `POST /api/login/` - User login
 - `POST /api/register/` - User registration
 - `GET /api/user/` - User profile
@@ -71,7 +75,9 @@ The API will be available at `http://localhost:8000/api/`
 ## Models
 
 ### Property
+
 Complete property model supporting:
+
 - **Categories**: Real estate and land
 - **Types**: Houses, apartments, villas, commercial, residential land, etc.
 - **Location**: Full address with coordinates
@@ -80,7 +86,9 @@ Complete property model supporting:
 - **Features**: Amenities and property features
 
 ### Agent
+
 Real estate agent profiles with:
+
 - Contact information
 - Agency details
 - License information
@@ -90,6 +98,7 @@ Real estate agent profiles with:
 ## Sample Data
 
 The setup script creates sample data including:
+
 - 5 properties (mix of real estate and land)
 - 2 agents with different specializations
 - Property images and amenities
@@ -100,6 +109,7 @@ The setup script creates sample data including:
 Access the Django admin at `http://localhost:8000/admin/`
 
 Default superuser credentials (created during setup):
+
 - Username: admin
 - Password: (set during setup)
 
@@ -176,6 +186,7 @@ For production deployment:
 ### Logs
 
 Check Django logs for debugging:
+
 ```bash
 python manage.py runserver --verbosity=2
 ```

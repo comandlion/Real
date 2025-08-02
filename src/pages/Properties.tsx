@@ -1,13 +1,40 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "react-router-dom";
-import { Search, MapPin, Bed, Bath, Square, Heart, Grid, List, SlidersHorizontal, Star, Eye, Calendar, TrendingUp, Filter, ArrowRight, Home, TreePine, Ruler, Building, Map as MapIcon, } from "lucide-react";
+import {
+  Search,
+  MapPin,
+  Bed,
+  Bath,
+  Square,
+  Heart,
+  Grid,
+  List,
+  SlidersHorizontal,
+  Star,
+  Eye,
+  Calendar,
+  TrendingUp,
+  Filter,
+  ArrowRight,
+  Home,
+  TreePine,
+  Ruler,
+  Building,
+  Map as MapIcon,
+} from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { PropertyMap } from "@/components/PropertyMap";
@@ -42,7 +69,9 @@ export default function Properties() {
   const [viewMode, setViewMode] = useState<"grid" | "list" | "map">("grid");
   const [priceRange, setPriceRange] = useState([0, 5000000]);
   const [showFilters, setShowFilters] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<"all" | "real_estate" | "land">("all");
+  const [activeCategory, setActiveCategory] = useState<
+    "all" | "real_estate" | "land"
+  >("all");
 
   // Build filters for API call
   const filters = useMemo<PropertySearchFilters>(() => {
@@ -120,8 +149,12 @@ export default function Properties() {
         <Header />
         <div className="flex items-center justify-center h-96">
           <div className="text-center">
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">Unable to load properties</h2>
-            <p className="text-gray-600">Please try again later or contact support.</p>
+            <h2 className="text-xl font-semibold text-gray-800 mb-2">
+              Unable to load properties
+            </h2>
+            <p className="text-gray-600">
+              Please try again later or contact support.
+            </p>
           </div>
         </div>
         <Footer />
@@ -193,7 +226,7 @@ export default function Properties() {
             </motion.div>
             <motion.div className="text-center" variants={itemVariants}>
               <div className="text-2xl font-bold text-luxury-gold">
-                {new Set(properties.map(p => p.city)).size}
+                {new Set(properties.map((p) => p.city)).size}
               </div>
               <div className="text-sm text-white/80">Cities</div>
             </motion.div>
@@ -593,7 +626,9 @@ export default function Properties() {
                       lng: prop.coordinates?.lng || prop.longitude,
                       type: prop.category,
                       propertyType: prop.real_estate_type || prop.land_type,
-                      image: prop.media?.images?.[0] || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                      image:
+                        prop.media?.images?.[0] ||
+                        "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                     }))}
                     height="600px"
                     className="w-full"
@@ -632,7 +667,10 @@ export default function Properties() {
                         >
                           <Link to={`/property/${property.id}`}>
                             <img
-                              src={property.media?.images?.[0] || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'}
+                              src={
+                                property.media?.images?.[0] ||
+                                "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                              }
                               alt={property.title}
                               className={`object-cover transition-transform duration-500 group-hover:scale-110 ${viewMode === "list" ? "w-full h-48" : "w-full h-48"}`}
                             />
@@ -719,13 +757,18 @@ export default function Properties() {
                               animate={{ scale: 1 }}
                               transition={{ delay: index * 0.05 }}
                             >
-                              {formatPrice(property.price, property.listing_type)}
+                              {formatPrice(
+                                property.price,
+                                property.listing_type,
+                              )}
                             </motion.div>
                           </div>
 
                           <div className="flex items-center text-gray-600 mb-3">
                             <MapPin className="h-4 w-4 mr-1" />
-                            <span className="text-sm">{property.city}, {property.state}</span>
+                            <span className="text-sm">
+                              {property.city}, {property.state}
+                            </span>
                           </div>
 
                           <div className="flex items-center justify-between mb-3">
@@ -754,7 +797,9 @@ export default function Properties() {
                               </div>
                               <div className="flex items-center justify-center p-2 bg-gray-50 rounded-lg">
                                 <Square className="h-4 w-4 mr-1" />
-                                <span>{property.total_area?.toLocaleString()}</span>
+                                <span>
+                                  {property.total_area?.toLocaleString()}
+                                </span>
                               </div>
                             </div>
                           ) : (
