@@ -782,12 +782,12 @@ export default function Properties() {
                                 :
                                 <span className="font-medium ml-1">
                                   {property.category === "land"
-                                    ? (property as any).zoning
-                                    : property.yearBuilt}
+                                    ? property.zoning || "N/A"
+                                    : property.year_built || "N/A"}
                                 </span>
                               </div>
                               <div className="text-gray-600">
-                                {property.daysOnMarket} days on market
+                                {property.days_on_market} days on market
                               </div>
                             </div>
                           </div>
