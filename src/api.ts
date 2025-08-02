@@ -23,19 +23,33 @@ export const getUser = (token: string) =>
     });
 
 class PropertyAPI {
+  private getAuthHeaders(): Record<string, string> {
+    const token = localStorage.getItem('token');
+    return token ? { Authorization: `Bearer ${token}` } : {};
+  }
+
   private async request<T>(
     endpoint: string,
     options?: RequestInit,
   ): Promise<T> {
+    const authHeaders = this.getAuthHeaders();
+
     const response = await fetch(`http://localhost:8000/api${endpoint}`, {
       headers: {
         "Content-Type": "application/json",
+        ...authHeaders,
         ...options?.headers,
       },
       ...options,
     });
 
     if (!response.ok) {
+      if (response.status === 401) {
+        // Token expired or invalid, redirect to login
+        localStorage.removeItem('token');
+        window.location.href = '/signin';
+        return Promise.reject(new Error('Authentication required'));
+      }
       throw new Error(`API Error: ${response.statusText}`);
     }
 
