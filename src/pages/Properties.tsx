@@ -611,7 +611,7 @@ export default function Properties() {
                   initial="hidden"
                   animate="visible"
                 >
-                  {filteredProperties.map((property, index) => (
+                  {properties.map((property, index) => (
                     <motion.div
                       key={property.id}
                       variants={itemVariants}
