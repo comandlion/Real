@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import {
   Property,
   PropertySearchFilters,
@@ -6,36 +6,56 @@ import {
 } from "@/types/property";
 
 const API = axios.create({
-    baseURL: 'http://localhost:8000/api/',
+  baseURL: "http://localhost:8000/api/",
 });
 
 export const login = (data: { username: string; password: string }) =>
-    API.post('login/', data);
+  API.post("login/", data);
 
-export const register = (data: { first_name: string; last_name: string; username: string; email: string; password1: string; password2: string }) =>
-    API.post('register/', data);
+export const register = (data: {
+  first_name: string;
+  last_name: string;
+  username: string;
+  email: string;
+  password1: string;
+  password2: string;
+}) => API.post("register/", data);
 
 export const getUser = (token: string) =>
-    API.get('user/', {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+  API.get("user/", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
 class PropertyAPI {
+  private getAuthHeaders(): Record<string, string> {
+    const token = localStorage.getItem("token");
+    return token ? { Authorization: `Bearer ${token}` } : {};
+  }
+
   private async request<T>(
     endpoint: string,
     options?: RequestInit,
   ): Promise<T> {
-    const response = await fetch(`${API}${endpoint}`, {
+    const authHeaders = this.getAuthHeaders();
+
+    const response = await fetch(`http://localhost:8000/api${endpoint}`, {
       headers: {
         "Content-Type": "application/json",
+        ...authHeaders,
         ...options?.headers,
       },
       ...options,
     });
 
     if (!response.ok) {
+      if (response.status === 401) {
+        // Token expired or invalid, redirect to login
+        localStorage.removeItem("token");
+        window.location.href = "/signin";
+        return Promise.reject(new Error("Authentication required"));
+      }
       throw new Error(`API Error: ${response.statusText}`);
     }
 
@@ -203,4 +223,3 @@ export const propertyAPI = new PropertyAPI();
 //         throw error;
 //     }
 // };
-

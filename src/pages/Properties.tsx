@@ -1,143 +1,48 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "react-router-dom";
-import { Search, MapPin, Bed, Bath, Square, Heart, Grid, List, SlidersHorizontal, Star, Eye, Calendar, TrendingUp, Filter, ArrowRight, Home, TreePine, Ruler, Building, Map as MapIcon, } from "lucide-react";
+import {
+  Search,
+  MapPin,
+  Bed,
+  Bath,
+  Square,
+  Heart,
+  Grid,
+  List,
+  SlidersHorizontal,
+  Star,
+  Eye,
+  Calendar,
+  TrendingUp,
+  Filter,
+  ArrowRight,
+  Home,
+  TreePine,
+  Ruler,
+  Building,
+  Map as MapIcon,
+} from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { PropertyMap } from "@/components/PropertyMap";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-// Enhanced mock data with both real estate and land properties
-const properties = [
-  {
-    id: 1,
-    title: "Modern Luxury Villa",
-    location: "Beverly Hills, CA",
-    price: 2850000,
-    beds: 4,
-    baths: 3,
-    sqft: 3200,
-    lotSize: "0.5 acres",
-    image:
-      "https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    tag: "Featured",
-    type: "For Sale",
-    category: "real_estate" as const,
-    propertyType: "Villa",
-    rating: 4.9,
-    views: 234,
-    daysOnMarket: 12,
-    yearBuilt: 2020,
-    coordinates: { lat: 34.0901, lng: -118.4065 },
-  },
-  {
-    id: 2,
-    title: "Prime Development Land",
-    location: "Malibu, CA",
-    price: 1500000,
-    sqft: 43560, // 1 acre
-    lotSize: "1.0 acres",
-    image:
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    tag: "Hot",
-    type: "For Sale",
-    category: "land" as const,
-    propertyType: "Residential Land",
-    rating: 4.7,
-    views: 189,
-    daysOnMarket: 5,
-    coordinates: { lat: 34.0259, lng: -118.7798 },
-    zoning: "Residential R1",
-    buildable: true,
-  },
-  {
-    id: 3,
-    title: "Contemporary Downtown Loft",
-    location: "Manhattan, NY",
-    price: 1200000,
-    beds: 2,
-    baths: 2,
-    sqft: 1800,
-    image:
-      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    tag: "New",
-    type: "For Sale",
-    category: "real_estate" as const,
-    propertyType: "Loft",
-    rating: 4.7,
-    views: 189,
-    daysOnMarket: 5,
-    yearBuilt: 2023,
-    coordinates: { lat: 40.7589, lng: -73.9851 },
-  },
-  {
-    id: 4,
-    title: "Commercial Land Plot",
-    location: "Austin, TX",
-    price: 850000,
-    sqft: 21780, // 0.5 acres
-    lotSize: "0.5 acres",
-    image:
-      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    tag: "Investment",
-    type: "For Sale",
-    category: "land" as const,
-    propertyType: "Commercial Land",
-    rating: 4.5,
-    views: 156,
-    daysOnMarket: 18,
-    coordinates: { lat: 30.2672, lng: -97.7431 },
-    zoning: "Commercial C2",
-    buildable: true,
-  },
-  {
-    id: 5,
-    title: "Luxury Penthouse",
-    location: "Miami Beach, FL",
-    price: 3900000,
-    beds: 3,
-    baths: 3,
-    sqft: 2800,
-    image:
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    tag: "Luxury",
-    type: "For Sale",
-    category: "real_estate" as const,
-    propertyType: "Penthouse",
-    rating: 5.0,
-    views: 312,
-    daysOnMarket: 8,
-    yearBuilt: 2021,
-    coordinates: { lat: 25.7617, lng: -80.1918 },
-  },
-  {
-    id: 6,
-    title: "Agricultural Land",
-    location: "Napa Valley, CA",
-    price: 2200000,
-    sqft: 217800, // 5 acres
-    lotSize: "5.0 acres",
-    image:
-      "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    tag: "Premium",
-    type: "For Sale",
-    category: "land" as const,
-    propertyType: "Agricultural Land",
-    rating: 4.8,
-    views: 98,
-    daysOnMarket: 25,
-    coordinates: { lat: 38.2975, lng: -122.2869 },
-    zoning: "Agricultural",
-    buildable: false,
-  },
-];
+import { useProperties } from "@/hooks/useProperties";
+import { PropertySearchFilters, PropertyCategory } from "@/types/property";
+import { Loader2 } from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -164,23 +69,40 @@ export default function Properties() {
   const [viewMode, setViewMode] = useState<"grid" | "list" | "map">("grid");
   const [priceRange, setPriceRange] = useState([0, 5000000]);
   const [showFilters, setShowFilters] = useState(false);
-  const [activeCategory, setActiveCategory] = useState< "all" | "real_estate" | "land" >("all");
-  const [filteredProperties, setFilteredProperties] = useState(properties);
-  const formatPrice = (price: number, type: string) => {
-    if (type === "For Rent") {
+  const [activeCategory, setActiveCategory] = useState<
+    "all" | "real_estate" | "land"
+  >("all");
+
+  // Build filters for API call
+  const filters = useMemo<PropertySearchFilters>(() => {
+    const apiFilters: PropertySearchFilters = {};
+
+    if (activeCategory !== "all") {
+      apiFilters.category = activeCategory as PropertyCategory;
+    }
+
+    if (priceRange[0] > 0 || priceRange[1] < 5000000) {
+      apiFilters.price_range = {
+        min: priceRange[0],
+        max: priceRange[1],
+      };
+    }
+
+    return apiFilters;
+  }, [activeCategory, priceRange]);
+
+  // Fetch properties from Django API
+  const { data: propertiesResponse, isLoading, error } = useProperties(filters);
+  const properties = propertiesResponse?.results || [];
+
+  const formatPrice = (price: number, listing_type: string) => {
+    if (listing_type === "rent") {
       return `$${price.toLocaleString()}/month`;
     }
     return `$${price.toLocaleString()}`;
   };
 
   const filterProperties = (category: "all" | "real_estate" | "land") => {
-    if (category === "all") {
-      setFilteredProperties(properties);
-    } else {
-      setFilteredProperties(
-        properties.filter((prop) => prop.category === category),
-      );
-    }
     setActiveCategory(category);
   };
 
@@ -207,6 +129,38 @@ export default function Properties() {
     (p) => p.category === "real_estate",
   );
   const landProperties = properties.filter((p) => p.category === "land");
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="flex items-center justify-center h-96">
+          <Loader2 className="h-8 w-8 animate-spin text-luxury-blue" />
+          <span className="ml-2 text-gray-600">Loading properties...</span>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="flex items-center justify-center h-96">
+          <div className="text-center">
+            <h2 className="text-xl font-semibold text-gray-800 mb-2">
+              Unable to load properties
+            </h2>
+            <p className="text-gray-600">
+              Please try again later or contact support.
+            </p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -254,7 +208,7 @@ export default function Properties() {
           >
             <motion.div className="text-center" variants={itemVariants}>
               <div className="text-2xl font-bold text-luxury-gold">
-                {properties.length}
+                {propertiesResponse?.count || 0}
               </div>
               <div className="text-sm text-white/80">Total Properties</div>
             </motion.div>
@@ -271,7 +225,9 @@ export default function Properties() {
               <div className="text-sm text-white/80">Land Plots</div>
             </motion.div>
             <motion.div className="text-center" variants={itemVariants}>
-              <div className="text-2xl font-bold text-luxury-gold">5</div>
+              <div className="text-2xl font-bold text-luxury-gold">
+                {new Set(properties.map((p) => p.city)).size}
+              </div>
               <div className="text-sm text-white/80">Cities</div>
             </motion.div>
           </motion.div>
@@ -297,7 +253,7 @@ export default function Properties() {
                 className="data-[state=active]:bg-luxury-blue data-[state=active]:text-white"
               >
                 <Building className="h-4 w-4 mr-2" />
-                All Properties ({properties.length})
+                All Properties ({propertiesResponse?.count || 0})
               </TabsTrigger>
               <TabsTrigger
                 value="real_estate"
@@ -563,7 +519,7 @@ export default function Properties() {
                   >
                     Showing{" "}
                     <span className="font-semibold text-luxury-blue">
-                      {filteredProperties.length}
+                      {properties.length}
                     </span>
                     {activeCategory === "all"
                       ? " properties"
@@ -661,16 +617,18 @@ export default function Properties() {
                   transition={{ duration: 0.3 }}
                 >
                   <PropertyMap
-                    properties={filteredProperties.map((prop) => ({
+                    properties={properties.map((prop) => ({
                       id: prop.id,
                       title: prop.title,
-                      location: prop.location,
-                      price: formatPrice(prop.price, prop.type),
-                      lat: prop.coordinates.lat,
-                      lng: prop.coordinates.lng,
+                      location: `${prop.city}, ${prop.state}`,
+                      price: formatPrice(prop.price, prop.listing_type),
+                      lat: prop.coordinates?.lat || prop.latitude,
+                      lng: prop.coordinates?.lng || prop.longitude,
                       type: prop.category,
-                      propertyType: prop.propertyType,
-                      image: prop.image,
+                      propertyType: prop.real_estate_type || prop.land_type,
+                      image:
+                        prop.media?.images?.[0] ||
+                        "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                     }))}
                     height="600px"
                     className="w-full"
@@ -688,7 +646,7 @@ export default function Properties() {
                   initial="hidden"
                   animate="visible"
                 >
-                  {filteredProperties.map((property, index) => (
+                  {properties.map((property, index) => (
                     <motion.div
                       key={property.id}
                       variants={itemVariants}
@@ -709,18 +667,26 @@ export default function Properties() {
                         >
                           <Link to={`/property/${property.id}`}>
                             <img
-                              src={property.image}
+                              src={
+                                property.media?.images?.[0] ||
+                                "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                              }
                               alt={property.title}
                               className={`object-cover transition-transform duration-500 group-hover:scale-110 ${viewMode === "list" ? "w-full h-48" : "w-full h-48"}`}
                             />
                           </Link>
 
                           <div className="absolute top-3 left-3 flex space-x-2">
-                            <Badge
-                              className={`${getTagColor(property.tag)} text-white shadow-lg`}
-                            >
-                              {property.tag}
-                            </Badge>
+                            {property.featured && (
+                              <Badge className="bg-luxury-blue text-white shadow-lg">
+                                Featured
+                              </Badge>
+                            )}
+                            {property.premium_listing && (
+                              <Badge className="bg-luxury-gold text-white shadow-lg">
+                                Premium
+                              </Badge>
+                            )}
                             <Badge
                               className={`${property.category === "land" ? "bg-emerald-500" : "bg-luxury-blue"} text-white shadow-lg`}
                             >
@@ -754,7 +720,7 @@ export default function Properties() {
                               variant="secondary"
                               className="bg-white/90 text-luxury-navy text-xs backdrop-blur-sm"
                             >
-                              {property.type}
+                              {property.listing_type}
                             </Badge>
                           </div>
 
@@ -791,20 +757,25 @@ export default function Properties() {
                               animate={{ scale: 1 }}
                               transition={{ delay: index * 0.05 }}
                             >
-                              {formatPrice(property.price, property.type)}
+                              {formatPrice(
+                                property.price,
+                                property.listing_type,
+                              )}
                             </motion.div>
                           </div>
 
                           <div className="flex items-center text-gray-600 mb-3">
                             <MapPin className="h-4 w-4 mr-1" />
-                            <span className="text-sm">{property.location}</span>
+                            <span className="text-sm">
+                              {property.city}, {property.state}
+                            </span>
                           </div>
 
                           <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center text-yellow-500">
                               <Star className="h-4 w-4 mr-1 text-yellow-400 fill-current" />
                               <span className="text-sm font-medium text-gray-700">
-                                {property.rating}
+                                {property.agent?.rating || "N/A"}
                               </span>
                             </div>
                             <div className="flex items-center text-xs text-gray-500">
@@ -818,27 +789,29 @@ export default function Properties() {
                             <div className="grid grid-cols-3 gap-2 text-sm text-gray-600 mb-4">
                               <div className="flex items-center justify-center p-2 bg-gray-50 rounded-lg">
                                 <Bed className="h-4 w-4 mr-1" />
-                                <span>{property.beds || "N/A"}</span>
+                                <span>{property.bedrooms || "N/A"}</span>
                               </div>
                               <div className="flex items-center justify-center p-2 bg-gray-50 rounded-lg">
                                 <Bath className="h-4 w-4 mr-1" />
-                                <span>{property.baths || "N/A"}</span>
+                                <span>{property.bathrooms || "N/A"}</span>
                               </div>
                               <div className="flex items-center justify-center p-2 bg-gray-50 rounded-lg">
                                 <Square className="h-4 w-4 mr-1" />
-                                <span>{property.sqft.toLocaleString()}</span>
+                                <span>
+                                  {property.total_area?.toLocaleString()}
+                                </span>
                               </div>
                             </div>
                           ) : (
                             <div className="grid grid-cols-2 gap-2 text-sm text-gray-600 mb-4">
                               <div className="flex items-center justify-center p-2 bg-gray-50 rounded-lg">
                                 <Ruler className="h-4 w-4 mr-1" />
-                                <span>{property.lotSize}</span>
+                                <span>{property.lot_size} acres</span>
                               </div>
                               <div className="flex items-center justify-center p-2 bg-gray-50 rounded-lg">
                                 <Square className="h-4 w-4 mr-1" />
                                 <span>
-                                  {property.sqft.toLocaleString()} sqft
+                                  {property.total_area?.toLocaleString()} sqft
                                 </span>
                               </div>
                             </div>
@@ -854,12 +827,12 @@ export default function Properties() {
                                 :
                                 <span className="font-medium ml-1">
                                   {property.category === "land"
-                                    ? (property as any).zoning
-                                    : property.yearBuilt}
+                                    ? property.zoning || "N/A"
+                                    : property.year_built || "N/A"}
                                 </span>
                               </div>
                               <div className="text-gray-600">
-                                {property.daysOnMarket} days on market
+                                {property.days_on_market} days on market
                               </div>
                             </div>
                           </div>
