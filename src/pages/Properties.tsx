@@ -1,40 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "react-router-dom";
-import {
-  Search,
-  MapPin,
-  Bed,
-  Bath,
-  Square,
-  Heart,
-  Grid,
-  List,
-  SlidersHorizontal,
-  Star,
-  Eye,
-  Calendar,
-  TrendingUp,
-  Filter,
-  ArrowRight,
-  Home,
-  TreePine,
-  Ruler,
-  Building,
-  Map as MapIcon,
-} from "lucide-react";
+import { Search, MapPin, Bed, Bath, Square, Heart, Grid, List, SlidersHorizontal, Star, Eye, Calendar, TrendingUp, Filter, ArrowRight, Home, TreePine, Ruler, Building, Map as MapIcon, } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { PropertyMap } from "@/components/PropertyMap";
@@ -191,11 +164,8 @@ export default function Properties() {
   const [viewMode, setViewMode] = useState<"grid" | "list" | "map">("grid");
   const [priceRange, setPriceRange] = useState([0, 5000000]);
   const [showFilters, setShowFilters] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<
-    "all" | "real_estate" | "land"
-  >("all");
+  const [activeCategory, setActiveCategory] = useState< "all" | "real_estate" | "land" >("all");
   const [filteredProperties, setFilteredProperties] = useState(properties);
-
   const formatPrice = (price: number, type: string) => {
     if (type === "For Rent") {
       return `$${price.toLocaleString()}/month`;

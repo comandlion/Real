@@ -1,26 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
-import {
-  Menu,
-  Phone,
-  Mail,
-  Search,
-  User,
-  Heart,
-  X,
-  Home as HomeIcon,
-  Building,
-  Users,
-  Info,
-  MessageCircle,
-} from "lucide-react";
+import { Menu, Phone, Mail, Search, User, Heart, X, Home as HomeIcon, Building, Users, Info, MessageCircle, } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { AuthContext } from "@/context/AuthContext";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const { token } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleAuthClick = () => {
+    if (token) {
+      navigate("/profile"); // redirect to profile if logged in
+    } else {
+      navigate("/signin"); // redirect to login page
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -194,21 +194,21 @@ export function Header() {
                 </motion.div>
               </Link>
 
-              <Link to="/signin">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button
+                  onClick={handleAuthClick}
+                  variant="ghost"
+                  size="sm"
+                  className="hidden lg:flex items-center space-x-2 hover:bg-luxury-blue/10 hover:text-luxury-blue transition-all"
                 >
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="hidden lg:flex items-center space-x-2 hover:bg-luxury-blue/10 hover:text-luxury-blue transition-all"
-                  >
-                    <User className="h-4 w-4" />
-                    <span>Sign In</span>
-                  </Button>
-                </motion.div>
-              </Link>
+                  <User className="h-4 w-4" />
+                  <span>{token ? "Profile" : "Sign In"}</span>
+                </Button>
+              </motion.div>
+
 
               <Link to="/list-property">
                 <motion.div
@@ -316,20 +316,16 @@ export function Header() {
                     </motion.div>
                   </Link>
 
-                  <Link to="/signin">
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                    <Button
+                      onClick={handleAuthClick}
+                      variant="ghost"
+                      className="w-full justify-start mb-2 hover:bg-luxury-blue/10 hover:text-luxury-blue"
                     >
-                      <Button
-                        variant="ghost"
-                        className="w-full justify-start mb-2 hover:bg-luxury-blue/10 hover:text-luxury-blue"
-                      >
-                        <User className="h-4 w-4 mr-2" />
-                        Sign In
-                      </Button>
-                    </motion.div>
-                  </Link>
+                      <User className="h-4 w-4 mr-2" />
+                      {token ? "Profile" : "Sign In"}
+                    </Button>
+                  </motion.div>
 
                   <Link to="/list-property">
                     <motion.div

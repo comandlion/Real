@@ -233,7 +233,8 @@ export default function PropertyDetail() {
   const [showContactForm, setShowContactForm] = useState(false);
   const [activeTab, setActiveTab] = useState("overview");
 
-  const property = propertyData[id as keyof typeof propertyData];
+  // const property = propertyData[id as keyof typeof propertyData];
+  const property = propertyData[id as unknown as keyof typeof propertyData];
 
   if (!property) {
     return (

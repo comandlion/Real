@@ -1,4 +1,9 @@
 import axios from 'axios';
+import {
+  Property,
+  PropertySearchFilters,
+  PropertyListResponse,
+} from "@/types/property";
 
 const API = axios.create({
     baseURL: 'http://localhost:8000/api/',
@@ -17,139 +22,185 @@ export const getUser = (token: string) =>
         },
     });
 
-export const getProperties = (params = {}, token?: string | null) =>
-    API.get('properties/', {
-        params,
-        headers: token
-            ? {
-                Authorization: `Bearer ${token}`,
-            }
-            : {},
+class PropertyAPI {
+  private async request<T>(
+    endpoint: string,
+    options?: RequestInit,
+  ): Promise<T> {
+    const response = await fetch(`${API}${endpoint}`, {
+      headers: {
+        "Content-Type": "application/json",
+        ...options?.headers,
+      },
+      ...options,
     });
 
-export const createProperty = (data: FormData, token: string) =>
-    API.post('properties/', data, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data', // for file/image uploads
-        },
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.statusText}`);
+    }
+
+    return response.json();
+  }
+
+  async getProperties(
+    filters?: PropertySearchFilters,
+  ): Promise<PropertyListResponse> {
+    const queryParams = new URLSearchParams();
+
+    if (filters) {
+      if (filters.category) queryParams.append("category", filters.category);
+      if (filters.listing_type)
+        queryParams.append("listing_type", filters.listing_type.join(","));
+      if (filters.price_range) {
+        queryParams.append("price__gte", filters.price_range.min.toString());
+        queryParams.append("price__lte", filters.price_range.max.toString());
+      }
+    }
+
+    return this.request<PropertyListResponse>(
+      `/properties/?${queryParams.toString()}`,
+    );
+  }
+
+  async getProperty(id: number): Promise<Property> {
+    return this.request<Property>(`/properties/${id}/`);
+  }
+
+  async getMapData(): Promise<any[]> {
+    return this.request<any[]>("/properties/map_data/");
+  }
+
+  async incrementViews(id: number): Promise<void> {
+    await this.request(`/properties/${id}/increment_views/`, {
+      method: "POST",
     });
+  }
 
-// Like a property or listing
-export const likeItem = async ( itemType: 'property' | 'listing', itemId: number, token: string ) => {
-    try {
-        const payload =
-            itemType === 'property'
-                ? { property: itemId }
-                : { listing: itemId };
+  async searchProperties(filters: PropertySearchFilters): Promise<Property[]> {
+    return this.request<Property[]>("/properties/search/", {
+      method: "POST",
+      body: JSON.stringify(filters),
+    });
+  }
+}
 
-        const response = await API.post(
-            'likes/',
-            payload,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-            }
-        );
+export const propertyAPI = new PropertyAPI();
 
-        return response.data;
-    } catch (error) {
-        if (axios.isAxiosError(error)) {
-            console.error('Response data:', error.response?.data);
-        }
-        console.error('Error liking item:', error);
-        throw error;
-    }
-};
-
-// Remove like
-export const unlikeItem = async (itemType: 'property' | 'listing', itemId: number, token: string) => {
-    try {
-
-        const response = await API.delete('likes/remove-like/', {
-            data: { [itemType]: itemId },
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        });
-        return response.data;
-    } catch (error) {
-        console.error('Error unliking item:', error);
-        throw error;
-    }
-};
-
-// Add to favorites
-export const addFavorite = async (itemType: 'property' | 'listing', itemId: number, token: string) => {
-    try {
-        const payload =
-            itemType === 'property'
-                ? { property: itemId }
-                : { listing: itemId };
-
-        const response = await API.post('favorites/', payload,{
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        });
-        return response.data;
-    } catch (error) {
-        console.error('Error adding favorite:', error);
-        throw error;
-    }
-};
-
-// Remove from favorites
-export const removeFavorite = async (itemType: 'property' | 'listing', itemId: number, token: string) => {
-    try {
-        const response = await API.delete('/favorites/remove-favorite/', {
-            data: { [itemType]: itemId },
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        });
-        return response.data;
-    } catch (error) {
-        console.error('Error removing favorite:', error);
-        throw error;
-    }
-};
-
-// Check if item is liked/favorited
-export const getInteractions = async (itemType: 'property' | 'listing', itemId: number, token: string) => {
-    try {
-        const endpoint = itemType === 'property' ? 'properties' : 'listings';
-
-        const response = await API.get(`/${endpoint}/${itemId}/interactions/`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            }
-        });
-        return response.data;
-    } catch (error) {
-        console.error('Error getting interactions:', error);
-        throw error;
-    }
-};
-
-export const fetchComments = async ( itemType: 'property' | 'listing', itemId: number, token: string ) => {
-    try {
-        const endpoint = itemType === 'property' ? 'properties' : 'listings';
-
-        const response = await API.get(`/${endpoint}/${itemId}/comments/`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-        return response.data; // Array of comments expected
-    } catch (error) {
-        console.error('Failed to fetch comments:', error);
-        throw error;
-    }
-};
+// // Like a property or listing
+// export const likeItem = async ( itemType: 'property' | 'listing', itemId: number, token: string ) => {
+//     try {
+//         const payload =
+//             itemType === 'property'
+//                 ? { property: itemId }
+//                 : { listing: itemId };
+//
+//         const response = await API.post(
+//             'likes/',
+//             payload,
+//             {
+//                 headers: {
+//                     Authorization: `Bearer ${token}`,
+//                     'Content-Type': 'application/json',
+//                 },
+//             }
+//         );
+//
+//         return response.data;
+//     } catch (error) {
+//         if (axios.isAxiosError(error)) {
+//             console.error('Response data:', error.response?.data);
+//         }
+//         console.error('Error liking item:', error);
+//         throw error;
+//     }
+// };
+//
+// // Remove like
+// export const unlikeItem = async (itemType: 'property' | 'listing', itemId: number, token: string) => {
+//     try {
+//
+//         const response = await API.delete('likes/remove-like/', {
+//             data: { [itemType]: itemId },
+//             headers: {
+//                 Authorization: `Bearer ${token}`,
+//                 'Content-Type': 'application/json'
+//             }
+//         });
+//         return response.data;
+//     } catch (error) {
+//         console.error('Error unliking item:', error);
+//         throw error;
+//     }
+// };
+//
+// // Add to favorites
+// export const addFavorite = async (itemType: 'property' | 'listing', itemId: number, token: string) => {
+//     try {
+//         const payload =
+//             itemType === 'property'
+//                 ? { property: itemId }
+//                 : { listing: itemId };
+//
+//         const response = await API.post('favorites/', payload,{
+//             headers: {
+//                 Authorization: `Bearer ${token}`,
+//                 'Content-Type': 'application/json'
+//             }
+//         });
+//         return response.data;
+//     } catch (error) {
+//         console.error('Error adding favorite:', error);
+//         throw error;
+//     }
+// };
+//
+// // Remove from favorites
+// export const removeFavorite = async (itemType: 'property' | 'listing', itemId: number, token: string) => {
+//     try {
+//         const response = await API.delete('/favorites/remove-favorite/', {
+//             data: { [itemType]: itemId },
+//             headers: {
+//                 Authorization: `Bearer ${token}`,
+//                 'Content-Type': 'application/json'
+//             }
+//         });
+//         return response.data;
+//     } catch (error) {
+//         console.error('Error removing favorite:', error);
+//         throw error;
+//     }
+// };
+//
+// // Check if item is liked/favorited
+// export const getInteractions = async (itemType: 'property' | 'listing', itemId: number, token: string) => {
+//     try {
+//         const endpoint = itemType === 'property' ? 'properties' : 'listings';
+//
+//         const response = await API.get(`/${endpoint}/${itemId}/interactions/`, {
+//             headers: {
+//                 Authorization: `Bearer ${token}`,
+//             }
+//         });
+//         return response.data;
+//     } catch (error) {
+//         console.error('Error getting interactions:', error);
+//         throw error;
+//     }
+// };
+//
+// export const fetchComments = async ( itemType: 'property' | 'listing', itemId: number, token: string ) => {
+//     try {
+//         const endpoint = itemType === 'property' ? 'properties' : 'listings';
+//
+//         const response = await API.get(`/${endpoint}/${itemId}/comments/`, {
+//             headers: {
+//                 Authorization: `Bearer ${token}`,
+//             },
+//         });
+//         return response.data; // Array of comments expected
+//     } catch (error) {
+//         console.error('Failed to fetch comments:', error);
+//         throw error;
+//     }
+// };
 
