@@ -632,7 +632,7 @@ export default function Properties() {
                         >
                           <Link to={`/property/${property.id}`}>
                             <img
-                              src={property.image}
+                              src={property.media?.images?.[0] || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'}
                               alt={property.title}
                               className={`object-cover transition-transform duration-500 group-hover:scale-110 ${viewMode === "list" ? "w-full h-48" : "w-full h-48"}`}
                             />
