@@ -732,7 +732,7 @@ export default function Properties() {
                             <div className="flex items-center text-yellow-500">
                               <Star className="h-4 w-4 mr-1 text-yellow-400 fill-current" />
                               <span className="text-sm font-medium text-gray-700">
-                                {property.rating}
+                                {property.agent?.rating || "N/A"}
                               </span>
                             </div>
                             <div className="flex items-center text-xs text-gray-500">
