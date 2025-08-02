@@ -725,7 +725,7 @@ export default function Properties() {
 
                           <div className="flex items-center text-gray-600 mb-3">
                             <MapPin className="h-4 w-4 mr-1" />
-                            <span className="text-sm">{property.location}</span>
+                            <span className="text-sm">{property.city}, {property.state}</span>
                           </div>
 
                           <div className="flex items-center justify-between mb-3">
