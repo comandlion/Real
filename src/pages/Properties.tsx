@@ -486,7 +486,7 @@ export default function Properties() {
                   >
                     Showing{" "}
                     <span className="font-semibold text-luxury-blue">
-                      {filteredProperties.length}
+                      {properties.length}
                     </span>
                     {activeCategory === "all"
                       ? " properties"
