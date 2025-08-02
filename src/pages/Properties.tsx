@@ -682,7 +682,7 @@ export default function Properties() {
                               variant="secondary"
                               className="bg-white/90 text-luxury-navy text-xs backdrop-blur-sm"
                             >
-                              {property.type}
+                              {property.listing_type}
                             </Badge>
                           </div>
 
